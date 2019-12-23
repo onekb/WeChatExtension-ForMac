@@ -85,11 +85,6 @@
             
             MessageService *msgService = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("MessageService")];
             
-            if (title.length > 20) {
-                title = [title substringToIndex:19];
-                title = [NSString stringWithFormat:@"%@...",title];
-            }
-            
             NSString *newMsgContent = @"";
             if(type.intValue == 36){//36为app分享小程序
                 NSDictionary *urlDict = [appMsgDict valueForKey:@"url"];
