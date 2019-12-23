@@ -96,26 +96,26 @@
                 NSString *url = [urlDict valueForKey:@"text"];
                 
                 newMsgContent = [NSString stringWithFormat:@"%@ \n%@%@(%@) \n%@%@ \n%@%@ \n%@%@ \n",
-                                 TKLocalizedString(@"assistant.msgInfo.miniprogram"),
-                                 TKLocalizedString(@"assistant.msgInfo.miniprogram.name"),
+                                 YMLocalizedString(@"assistant.msgInfo.miniprogram"),
+                                 YMLocalizedString(@"assistant.msgInfo.miniprogram.name"),
                                  sourcedisplayname,
                                  appid,
-                                 TKLocalizedString(@"assistant.msgInfo.miniprogram.title"),
+                                 YMLocalizedString(@"assistant.msgInfo.miniprogram.title"),
                                  title,
-                                 TKLocalizedString(@"assistant.msgInfo.miniprogram.path"),
+                                 YMLocalizedString(@"assistant.msgInfo.miniprogram.path"),
                                  pagepath,
-                                 TKLocalizedString(@"assistant.msgInfo.miniprogram.url"),
+                                 YMLocalizedString(@"assistant.msgInfo.miniprogram.url"),
                                  url
                                  ];
             }else{
                 newMsgContent = [NSString stringWithFormat:@"%@ \n%@%@(%@) \n%@%@ \n%@%@ \n",
-                                 TKLocalizedString(@"assistant.msgInfo.miniprogram"),
-                                 TKLocalizedString(@"assistant.msgInfo.miniprogram.name"),
+                                 YMLocalizedString(@"assistant.msgInfo.miniprogram"),
+                                 YMLocalizedString(@"assistant.msgInfo.miniprogram.name"),
                                  sourcedisplayname,
                                  appid,
-                                 TKLocalizedString(@"assistant.msgInfo.miniprogram.title"),
+                                 YMLocalizedString(@"assistant.msgInfo.miniprogram.title"),
                                  title,
-                                 TKLocalizedString(@"assistant.msgInfo.miniprogram.path"),
+                                 YMLocalizedString(@"assistant.msgInfo.miniprogram.path"),
                                  pagepath
                                  ];
             }
@@ -140,8 +140,8 @@
             
             MessageService *msgService = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("MessageService")];
             NSString *newMsgContent = [NSString stringWithFormat:@"%@ \n%@%@ \n",
-                                       TKLocalizedString(@"assistant.msgInfo.wcpay.redPacket"),
-                                       TKLocalizedString(@"assistant.msgInfo.wcpay.redPacket.title"),
+                                       YMLocalizedString(@"assistant.msgInfo.wcpay.redPacket"),
+                                       YMLocalizedString(@"assistant.msgInfo.wcpay.redPacket.title"),
                                        title
                                        ];
             MessageData *newMsgData = ({
@@ -168,8 +168,8 @@
             
             MessageService *msgService = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("MessageService")];
             NSString *newMsgContent = [NSString stringWithFormat:@"%@ \n%@【%@】%@ \n",
-                                       TKLocalizedString(@"assistant.msgInfo.wcpay.transfer"),
-                                       TKLocalizedString(@"assistant.msgInfo.wcpay.transfer.desc"),
+                                       YMLocalizedString(@"assistant.msgInfo.wcpay.transfer"),
+                                       YMLocalizedString(@"assistant.msgInfo.wcpay.transfer.desc"),
                                        feedesc,
                                        payMemo
                                        ];
