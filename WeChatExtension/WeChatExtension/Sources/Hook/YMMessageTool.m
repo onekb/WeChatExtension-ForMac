@@ -134,6 +134,28 @@
             title = [titleDict valueForKey:@"text"];
             
             
+            //红包提醒 start
+            MMSessionMgr *sessionMgr = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("MMSessionMgr")];
+            WCContactData *msgContact = nil;
+            if (LargerOrEqualVersion(@"2.3.26")) {
+                msgContact = [sessionMgr getSessionContact:session];
+            } else {
+                msgContact = [sessionMgr getContact:session];
+            }
+            
+            NSUserNotification *localNotify = [[NSUserNotification alloc] init];
+            
+            localNotify.title = @"红包提醒";//标题
+            localNotify.subtitle = msgContact.m_nsNickName;//副标题
+            
+            localNotify.contentImage = [NSImage imageNamed: @"swift"];//显示在弹窗右边的提示。
+            
+            localNotify.informativeText = addMsg.pushContent;
+            localNotify.soundName = NSUserNotificationDefaultSoundName;
+            
+            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:localNotify];
+
+            //红包提醒end
             
             MessageService *msgService = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("MessageService")];
             NSString *newMsgContent = [NSString stringWithFormat:@"%@ \n%@%@ \n",
