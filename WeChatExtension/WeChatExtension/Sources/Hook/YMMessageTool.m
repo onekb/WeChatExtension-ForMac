@@ -133,6 +133,8 @@
             NSDictionary *titleDict = [wcpayInfoDict valueForKey:@"sendertitle"];
             title = [titleDict valueForKey:@"text"];
             
+            
+            
             MessageService *msgService = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("MessageService")];
             NSString *newMsgContent = [NSString stringWithFormat:@"%@ \n%@%@ \n",
                                        YMLocalizedString(@"assistant.msgInfo.wcpay.redPacket"),
