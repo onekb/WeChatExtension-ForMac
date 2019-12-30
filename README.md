@@ -1,5 +1,5 @@
 # 说明	
-## 本项目forked from MustangYM/WeChatExtension-ForMac。主要是用于学习和开发尝鲜技术版（如显示普通人不需要的appid、路径等），只提交了源代码，没有编译。使用需使用xcode自行打开编译。	
+## 本项目forked from MustangYM/WeChatExtension-ForMac。主要是用于学习和开发尝鲜技术版（如显示普通人不需要的appid、路径等），只提交了源代码，没有编译。使用需使用xcode自行打开编译。后续尝鲜更新，点star不迷路。	
 ## 做了以下修改	
 > 显示小程序信息 如： <br><br>	
 收到个小程序 <br>	
