@@ -117,6 +117,8 @@
 
 - (void)monitorQuitGroup:(WCContactData *)groupData
 {
+    // 退群暂不稳定 先关闭
+    return;
     if (!groupData) {
         return;
     }
