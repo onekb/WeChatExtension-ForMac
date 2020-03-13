@@ -24,6 +24,8 @@ typedef NS_ENUM(NSInteger, PluginLanguageType) {
 @property (nonatomic, assign) BOOL preventAsyncRevokeChatRoom;           /**<    只同步群聊    */
 @property (nonatomic, assign) BOOL autoReplyEnable;                     /**<    是否开启自动回复  */
 @property (nonatomic, assign) BOOL autoAuthEnable;                      /**<    是否免认证登录    */
+@property (nonatomic, assign) BOOL launchFromNew;                       /**<    是否是从 -> 登录新微信 -> 启动      */
+@property (nonatomic, assign) BOOL quitMonitorEnable;
 @property (nonatomic, assign) BOOL autoLoginEnable;                     /**<    是否自动登录      */
 @property (nonatomic, assign) BOOL onTop;                               /**<    是否要置顶微信    */
 @property (nonatomic, assign) BOOL multipleSelectionEnable;             /**<    是否要进行多选    */
@@ -42,6 +44,8 @@ typedef NS_ENUM(NSInteger, PluginLanguageType) {
 @property (nonatomic, copy, readonly) NSDictionary *romoteInfoPlist;
 @property (nonatomic, strong) YMAIAutoModel *AIReplyModel;
 @property (nonatomic, assign) PluginLanguageType languageType;
+@property (nonatomic, assign) BOOL isAllowMoreOpenBaby;
+
 - (void)saveAutoReplyModels;
 - (void)saveRemoteControlModels;
 - (void)saveIgnoreSessionModels;
@@ -51,5 +55,6 @@ typedef NS_ENUM(NSInteger, PluginLanguageType) {
 
 - (void)saveMonitorQuitMembers:(NSMutableArray *)members;
 - (NSMutableArray *)getMonitorQuitMembers;
+- (NSString *)languageSetting:(NSString *)chinese english:(NSString *)english;
 @end
 

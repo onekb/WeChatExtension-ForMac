@@ -26,6 +26,7 @@
 #import "YMNetWorkHelper.h"
 #import<CommonCrypto/CommonDigest.h>
 #import "YMIMContactsManager.h"
+
 @implementation NSObject (WeChatHook)
 
 + (void)hookWeChat {
@@ -45,9 +46,11 @@
     //      微信多开
     SEL hasWechatInstanceMethod = LargerOrEqualVersion(@"2.3.22") ? @selector(FFSvrChatInfoMsgWithImgZZ) : @selector(HasWechatInstance);
     hookClassMethod(objc_getClass("CUtility"), hasWechatInstanceMethod, [self class], @selector(hook_HasWechatInstance));
-    
+
     //多开
-    hookClassMethod(objc_getClass("NSRunningApplication"), @selector(runningApplicationsWithBundleIdentifier:), [self class], @selector(hook_runningApplicationsWithBundleIdentifier:));
+    if ([TKWeChatPluginConfig sharedConfig].isAllowMoreOpenBaby) {
+        hookClassMethod(objc_getClass("NSRunningApplication"), @selector(runningApplicationsWithBundleIdentifier:), [self class], @selector(hook_runningApplicationsWithBundleIdentifier:));
+    }
     
     //      免认证登录
     hookMethod(objc_getClass("MMLoginOneClickViewController"), @selector(onLoginButtonClicked:), [self class], @selector(hook_onLoginButtonClicked:));
@@ -110,6 +113,7 @@
 //
 //    hookMethod(objc_getClass("MMChatsTableCellView"), @selector(initWithFrame:), [self class], @selector(cellhook_initWithFrame:));
 //    hookMethod(objc_getClass("MMTextField"), @selector(setTextColor:), [self class], @selector(hook_setTextColor:));
+    
 }
 
 - (void)hook_setTextColor:(NSColor *)arg1
@@ -465,6 +469,11 @@
     AccountService *accountService = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("AccountService")];
     BOOL autoAuthEnable = [[TKWeChatPluginConfig sharedConfig] autoAuthEnable];
     if (autoAuthEnable && [accountService canAutoAuth]) {
+        if ([TKWeChatPluginConfig sharedConfig].launchFromNew) {
+            [TKWeChatPluginConfig sharedConfig].launchFromNew = NO;
+            return;
+        }
+
         [accountService AutoAuth];
         
         WeChat *wechat = [objc_getClass("WeChat") sharedInstance];
@@ -913,7 +922,9 @@ NSString *swizzled_NSHomeDirectory(void) {
 #pragma mark -
 - (void)hook_UpdateGroupMemberDetailIfNeeded:(id)arg1 withCompletion:(id)arg2
 {
-    [[YMIMContactsManager shareInstance] monitorQuitGroup:arg1];
+    if ([TKWeChatPluginConfig sharedConfig].quitMonitorEnable) {
+        [[YMIMContactsManager shareInstance] monitorQuitGroup:arg1];
+    }
     [self hook_UpdateGroupMemberDetailIfNeeded:arg1 withCompletion:arg2];
 }
 @end
