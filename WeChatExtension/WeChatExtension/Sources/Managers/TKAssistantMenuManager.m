@@ -171,8 +171,7 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     
     NSMenu *subPluginMenu = [[NSMenu alloc] initWithTitle:YMLocalizedString(@"assistant.menu.other")];
     [subPluginMenu addItems:@[enableAlfredItem,
-                             updatePluginItem,
-                             aboutPluginItem]];
+                             updatePluginItem]];
     
     NSMenu *subMenu = [[NSMenu alloc] initWithTitle:YMLocalizedString(@"assistant.menu.title")];
 
@@ -186,7 +185,8 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
                         autoAuthItem,
                         enableSystemBrowserItem,
                         pluginItem,
-                        currentVersionItem
+                        currentVersionItem,
+                        aboutPluginItem
                         ]];
 
     id wechat = LargerOrEqualVersion(@"2.3.24") ? [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("MMUpdateMgr")] : [objc_getClass("WeChat") sharedInstance];
@@ -366,8 +366,26 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
  @param item 登录新微信的item
  */
 - (void)onNewWechatInstance:(NSMenuItem *)item {
-    [TKWeChatPluginConfig sharedConfig].launchFromNew = YES;
-    [TKRemoteControlManager executeShellCommand:@"open -n /Applications/WeChat.app"];
+    
+    if ([TKWeChatPluginConfig sharedConfig].isAllowMoreOpenBaby) {
+        [TKWeChatPluginConfig sharedConfig].launchFromNew = YES;
+        [TKRemoteControlManager executeShellCommand:@"open -n /Applications/WeChat.app"];
+    } else {
+        NSAlert *alert = [NSAlert alertWithMessageText:YMLanguage(@"警告", @"WARNING")
+                                         defaultButton:YMLanguage(@"取消", @"cancel")                       alternateButton:YMLanguage(@"确定重启",@"restart")
+                                           otherButton:nil                              informativeTextWithFormat:@"%@", YMLanguage(@"多开需要重启微信一次",@"You need to restart wechat for multiple opening")];
+        NSUInteger action = [alert runModal];
+        if (action == NSAlertAlternateReturn ) {
+            __weak __typeof (self) wself = self;
+            [[TKWeChatPluginConfig sharedConfig] setIsAllowMoreOpenBaby:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    [[NSApplication sharedApplication] terminate:wself];
+                });
+            });
+        }  else if(action == NSAlertOtherReturn){
+        }
+    }
 }
 
 /**
