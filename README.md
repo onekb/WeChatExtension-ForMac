@@ -22,11 +22,7 @@
 ### 最后感谢 [MustangYM](https://github.com/MustangYM) 和 [tk](https://github.com/TKkk-iOSer) 的无私付出	
 ### （完）下面内容为原项目信息	
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> MustangYM-master
 <p align="center">
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/face.png" width="1000px"/>
 </p>
