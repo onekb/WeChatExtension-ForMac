@@ -27,6 +27,7 @@
 #import<CommonCrypto/CommonDigest.h>
 #import "YMIMContactsManager.h"
 
+
 @implementation NSObject (WeChatHook)
 
 + (void)hookWeChat {
@@ -101,139 +102,8 @@
     
     [self setup];
     
-    
-    if ([TKWeChatPluginConfig sharedConfig].darkMode) {
-        hookMethod(objc_getClass("NSView"), @selector(addSubview:), [self class], @selector(hook_initWithFrame:));
-        hookMethod(objc_getClass("MMComposeInputViewController"), @selector(viewDidLoad), [self class], @selector(hook_ComposeInputViewControllerViewDidLoad));
-        hookMethod(objc_getClass("MMChatMessageViewController"), @selector(viewDidLoad), [self class], @selector(hook_ChatMessageViewControllerViewDidLoad));
-        hookMethod(objc_getClass("NSScrollView"), @selector(initWithFrame:), [self class], @selector(hook_scrollViewInitWithFrame:));
-        hookMethod(objc_getClass("MMChatsTableCellView"), @selector(initWithFrame:), [self class], @selector(cellhook_initWithFrame:));
-        hookMethod(objc_getClass("MMTextField"), @selector(setTextColor:), [self class], @selector(hook_setTextColor:));
-        hookMethod(objc_getClass("MMSidebarRowView"), @selector(initWithFrame:), [self class], @selector(hook_sideBarViewInitWithFrame:));
-         hookMethod(objc_getClass("MMLoginWaitingConfirmViewController"), @selector(viewDidLoad:), [self class], @selector(hook_loginWaitingViewDidLoad));
-        hookMethod(objc_getClass("MMLoginQRCodeViewController"), @selector(viewDidLoad), [self class], @selector(hook_QRCodeViewDidLoad));
-    }
 }
 
-- (void)hook_QRCodeViewDidLoad {
-    [self hook_QRCodeViewDidLoad];
-    if ([self.className isEqualToString:@"MMLoginQRCodeViewController"]) {
-        MMLoginQRCodeViewController *qrLoginVC = (MMLoginQRCodeViewController *)self;
-        for (NSView *sub in qrLoginVC.view.subviews) {
-            if (![sub isKindOfClass:NSImageView.class]) {
-                [[YMThemeMgr shareInstance] changeTheme:sub color:kRGBColor(172, 172, 172, 1)];
-            }
-        }
-    }
-}
-
-- (void)hook_loginWaitingViewDidLoad
-{
-    [self hook_loginWaitingViewDidLoad];
-    
-    if ([self.className isEqualToString:@"MMLoginWaitingConfirmViewController"]) {
-        MMLoginWaitingConfirmViewController *loginWaitVC = (MMLoginWaitingConfirmViewController *)self;
-        [[YMThemeMgr shareInstance] changeTheme:loginWaitVC.view];
-    }
-}
-
-- (void)hook_setTextColor:(NSColor *)arg1
-{
-    arg1 = kRGBColor(49, 110, 105, 1);
-    [self hook_setTextColor:arg1];
-}
-
-- (id)cellhook_initWithFrame:(struct CGRect)arg1
-{
-    return [self cellhook_initWithFrame:arg1];
-}
-
-- (instancetype)hook_sideBarViewInitWithFrame:(NSRect)frameRect {
-    MMSidebarRowView *view = (MMSidebarRowView *)self;
-    [[YMThemeMgr shareInstance] changeTheme:view.containerView];
-    return [self hook_sideBarViewInitWithFrame:frameRect];
-}
-
-- (instancetype)hook_scrollViewInitWithFrame:(NSRect)frameRect {
-    NSScrollView *view = (NSScrollView *)self;
-    [[YMThemeMgr shareInstance] changeTheme:view.contentView];
-    return [self hook_scrollViewInitWithFrame:frameRect];
-}
-
-- (void)hook_ChatMessageViewControllerViewDidLoad {
-    [self hook_ChatMessageViewControllerViewDidLoad];
-}
-- (void)hook_ComposeInputViewControllerViewDidLoad {
-    [self hook_ComposeInputViewControllerViewDidLoad];
-    MMComposeInputViewController *controller = (MMComposeInputViewController *)self;
-    [[YMThemeMgr shareInstance] changeTheme:controller.view];
-}
-
-- (void)hook_initWithFrame:(NSView *)view {
-    [self hook_initWithFrame:view];
-    
-    if ([view isKindOfClass:[objc_getClass("NSButtonImageView") class]]) {
-        return;
-    }
-    
-    if ([view isKindOfClass:[objc_getClass("NSButton") class]]) {
-        return;
-    }
-    
-    if ([view isKindOfClass:[objc_getClass("MMAvatarImageView") class]]) {
-        return;
-    }
-    
-    if ([view isKindOfClass:[objc_getClass("_NSScrollViewFloatingSubviewsContainerView") class]]) {
-        return;
-    }
-    
-    NSResponder *responder = view;
-    NSViewController *controller = nil;
-    while ((responder = [responder nextResponder])){
-        if ([responder isKindOfClass: [NSViewController class]]){
-           controller = (NSViewController *)responder;
-        }
-    }
-    
-    
-    if ([view isKindOfClass:[objc_getClass("MMComposeTextView") class]]) {
-        MMComposeTextView *textView = (MMComposeTextView *)view;
-        textView.insertionPointColor = [NSColor whiteColor];
-        textView.backgroundColor = kRGBColor(113, 113, 117, 1.0);
-    }
-    
-    if ([view isKindOfClass:[objc_getClass("SwipeDeleteView") class]]) {
-        [[YMThemeMgr shareInstance] changeTheme:view];
-    }
-    
-    
-    if ([view isKindOfClass:[objc_getClass("MMFavoritesListMediaCell") class]]) {
-        for (NSView *sub in view.subviews) {
-            [[YMThemeMgr shareInstance] changeTheme:sub];
-        }
-    }
-    
-    if ([controller isKindOfClass:[objc_getClass("MMChatMessageViewController") class]]) {
-        MMChatMessageViewController *msgViewController = (MMChatMessageViewController *)controller;
-        [msgViewController.messageTableView setBackgroundColor:kRGBColor(61, 62, 60, 1)];
-        [[msgViewController.messageTableView enclosingScrollView] setDrawsBackground:NO];
-        [[YMThemeMgr shareInstance] changeTheme:view];
-    }
-    
-    if ( [controller isKindOfClass:[objc_getClass("MMComposeInputViewController") class]]
-        ||
-        [controller isKindOfClass:[objc_getClass("MMMainViewController") class]]
-        ||
-        [controller isKindOfClass:[objc_getClass("MMContactsDetailViewController") class]]
-        ||
-        [controller isKindOfClass:[objc_getClass("MMFavoriteDetailViewContoller") class]]
-        ) {
-        
-      [[YMThemeMgr shareInstance] changeTheme:view];
-    }
-    
-}
 
 //主控制器的生命周期
 - (void)hook_mainViewControllerDidLoad {
@@ -561,7 +431,7 @@
     if (![self.className isEqualToString:@"MMLoginOneClickViewController"]) {
         return;
     } else {
-        if ([TKWeChatPluginConfig sharedConfig].darkMode) {
+        if ([TKWeChatPluginConfig sharedConfig].darkMode || [TKWeChatPluginConfig sharedConfig].pinkMode) {
             [[YMThemeMgr shareInstance] changeTheme:loginVC.view];
         }
     }
