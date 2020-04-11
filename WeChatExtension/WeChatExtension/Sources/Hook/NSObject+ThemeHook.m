@@ -33,7 +33,6 @@
         hookMethod(objc_getClass("MMComposeInputViewController"), @selector(viewDidLoad), [self class], @selector(hook_ComposeInputViewControllerViewDidLoad));
         hookMethod(objc_getClass("MMChatMessageViewController"), @selector(viewDidLoad), [self class], @selector(hook_ChatMessageViewControllerViewDidLoad));
         hookMethod(objc_getClass("NSScrollView"), @selector(initWithFrame:), [self class], @selector(hook_scrollViewInitWithFrame:));
-        hookMethod(objc_getClass("MMSidebarRowView"), @selector(initWithFrame:), [self class], @selector(hook_sideBarViewInitWithFrame:));
         hookMethod(objc_getClass("MMLoginWaitingConfirmViewController"), @selector(viewDidAppear), [self class], @selector(hook_loginWaitingViewDidLoad));
         hookMethod(objc_getClass("MMLoginQRCodeViewController"), @selector(viewDidLoad), [self class], @selector(hook_QRCodeViewDidLoad));
         //    hookMethod(objc_getClass("MMTextField"), @selector(setAttributedStringValue:), [self class], @selector(hook_setAttributedStringValue:));
@@ -59,7 +58,7 @@
         hookMethod(objc_getClass("MMSessionPickerListRowView"), @selector(drawRect:), [self class], @selector(hook_pickerListDrawRect:));
         hookMethod(objc_getClass("MMChatDetailMemberRowView"), @selector(avatarImageView), [self class], @selector(hook_chatDetailAvatarImageView));
     }
-
+        
 }
 
 - (NSImageView *)hook_chatDetailAvatarImageView
@@ -252,6 +251,16 @@
     [self hook_windowDidLoad];
     NSWindowController *window = (NSWindowController *)self;
     [[YMThemeMgr shareInstance] changeTheme:window.window.contentView];
+    
+    if ([self isKindOfClass:objc_getClass("MMGlobalChatManagerWindowController")]) {
+        MMGlobalChatManagerWindowController *window = (MMGlobalChatManagerWindowController *)self;
+        for (NSView *sub in window.window.contentView.subviews) {
+            if (![sub isKindOfClass:objc_getClass("MMCustomSearchField")]) {
+               [[YMThemeMgr shareInstance] changeTheme:sub];
+            }
+        }
+    }
+    
 }
 
 - (void)hook_showWindow:(nullable id)sender
@@ -266,7 +275,10 @@
     [self hook_updateNickName];
     MMChatsTableCellView *cell = (MMChatsTableCellView *)self;
     NSAttributedString *str = cell.nickName.attributedStringValue;
-    NSMutableAttributedString *returnValue = [[NSMutableAttributedString alloc] initWithString:str.string attributes:@{NSForegroundColorAttributeName :kRGBColor(255, 255, 255, 1.0), NSFontAttributeName : [NSFont systemFontOfSize:14]}];
+    NSRange range = NSMakeRange(0, str.length);
+    NSDictionary *attributes = [str attributesAtIndex:0 effectiveRange:&range];
+    NSFont *attributesFont = [attributes valueForKey:@"NSFont"];
+    NSMutableAttributedString *returnValue = [[NSMutableAttributedString alloc] initWithString:str.string attributes:@{NSForegroundColorAttributeName :kRGBColor(255, 255, 255, 1.0), NSFontAttributeName : attributesFont}];
     cell.nickName.attributedStringValue = returnValue;
     
     if ([TKWeChatPluginConfig sharedConfig].darkMode) {
@@ -352,12 +364,6 @@
     textField.backgroundColor = kMainBackgroundColor;
 }
 
-- (instancetype)hook_sideBarViewInitWithFrame:(NSRect)frameRect {
-    MMSidebarRowView *view = (MMSidebarRowView *)self;
-    [[YMThemeMgr shareInstance] changeTheme:view.containerView];
-    return [self hook_sideBarViewInitWithFrame:frameRect];
-}
-
 - (instancetype)hook_scrollViewInitWithFrame:(NSRect)frameRect {
     NSScrollView *view = (NSScrollView *)self;
     [[YMThemeMgr shareInstance] changeTheme:view.contentView];
@@ -388,6 +394,15 @@
 
 - (void)hook_initWithFrame:(NSView *)view {
     [self hook_initWithFrame:view];
+    
+    
+    if ([view isKindOfClass:[objc_getClass("SVGImageView") class]]) {
+           return;
+       }
+    
+    if ([view isKindOfClass:[objc_getClass("MMStickerMessageCellView") class]]) {
+        return;
+    }
     
     if ([view isKindOfClass:[objc_getClass("MMSystemMessageCellView") class]]) {
         return;
@@ -507,13 +522,15 @@
     //公众号
     if ([view isKindOfClass:[objc_getClass("MMDragEventView") class]]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[YMThemeMgr shareInstance] changeTheme:view];
-            for (NSView *effect in view.subviews) {
-                if ([effect isKindOfClass:NSVisualEffectView.class]) {
-                    for (NSView *effectSub in effect.subviews) {
-                        if (![effectSub isKindOfClass:NSTextField.class]) {
-                            [[YMThemeMgr shareInstance] changeTheme:effectSub];
-                            break;
+            if (![view.superview isKindOfClass:objc_getClass("MMQLPreviewView")]) {
+                [[YMThemeMgr shareInstance] changeTheme:view];
+                for (NSView *effect in view.subviews) {
+                    if ([effect isKindOfClass:NSVisualEffectView.class]) {
+                        for (NSView *effectSub in effect.subviews) {
+                            if (![effectSub isKindOfClass:NSTextField.class]) {
+                                [[YMThemeMgr shareInstance] changeTheme:effectSub];
+                                break;
+                            }
                         }
                     }
                 }
@@ -539,7 +556,9 @@
     }
     
     if ([controller isKindOfClass:[objc_getClass("MMMainViewController") class]]) {
-        [[YMThemeMgr shareInstance] changeTheme:view];
+        if (![view isKindOfClass:objc_getClass("_NSImageViewSimpleImageView")]) {
+            [[YMThemeMgr shareInstance] changeTheme:view];
+        }
     }
     
     if ([controller isKindOfClass:[objc_getClass("MMContactsDetailViewController") class]]) {

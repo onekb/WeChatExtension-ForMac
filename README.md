@@ -1,6 +1,7 @@
 # 说明	
 ## 本项目forked from MustangYM/WeChatExtension-ForMac。主要是用于学习和开发尝鲜技术版（如显示普通人不需要的appid、路径等），只提交了源代码，没有编译。使用需使用xcode自行打开编译。后续尝鲜更新，点star不迷路。	
-## 做了以下修改	
+## 做了以下修改
+> 取消开/关防撤回的快捷键⌘+k
 > 显示小程序信息 如： <br><br>	
 收到个小程序 <br>	
 小程序名称：哔哩哔哩 (wx7564fd5313d24844) <br>	
@@ -27,7 +28,7 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/face.png" width="1000px"/>
 </p>
 
-![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.5.2-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.0-blue.svg)
+![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.5.4-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.0-blue.svg)
 
 支持[企业微信](https://github.com/MustangYM/WeChatICU-ForMac),由此进.
 
@@ -171,6 +172,8 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
 
 ## 更新日志
 ```
+2020-04-10 修复免认证登录后左下角"小手机"不显示, 远程控制/自动回复/关于界面适配黑暗模式
+2020-03-31 会话列表抖动, 联系人列表优化, 群成员列表优化
 2020-03-25 视频播放界面遮罩修复, 聊天界面按钮优化, 屏蔽消息提示优化, 文件选择界面优化, 消息记录界面优化, 粉色模式下TouchBar问题修复, 置底和多选修复
 2020-03-19 表情,聊天记录,群聊创建输入框,登录页,弹窗等等页面适配黑暗模式
 2020-03-17 黑夜模式
@@ -323,6 +326,14 @@ This project exists thanks to all the people who contribute.
   <a href="https://github.com/caoxinjava001"><img src="https://avatars3.githubusercontent.com/u/4892867?s=400&u=0ad501d30873d872971e8c4cd941f6e40c5f02ea&v=4" width="100px;" alt="caoxinjava001"/>
   <br></br><sub><b>caoxinjava001</b></sub>
  
+   <td align="center">
+  <a href="https://github.com/Whatsmine"><img src="https://avatars2.githubusercontent.com/u/39985040?s=400&v=4" width="100px;" alt="Whatsmine"/>
+  <br></br><sub><b>Whatsmine</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/orangeclassmate"><img src="https://avatars0.githubusercontent.com/u/34773757?s=400&u=9c4b3457256daded0326ba87b3ef129b0f69ee17&v=4" width="100px;" alt="orangeclassmate"/>
+  <br></br><sub><b>orangeclassmate</b></sub>
+ 
   </td></tr></table>
 
 ## Backers
@@ -332,9 +343,6 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 <a href="https://opencollective.com/mustangym666#backers" target="_blank"><img src="https://opencollective.com/mustangym666/backers.svg?width=890"></a>
 
 ## 交流与支持
-<p align="left">
-<img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/aliPay.png" width="200px"/>
-</p>
 
 
 QQ群 741941325

@@ -158,6 +158,7 @@
 		36AC9D8B228A81C200EA9F97 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 36AC9D89228A81C200EA9F97 /* XMLReader.m */; };
 		8EB413EE2E0AB9424DB91B42 /* libPods-WeChatExtensionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B176B73969A171B6926048F /* libPods-WeChatExtensionTests.a */; };
 		96B578BF2360AA8A00F3F66C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96B578C12360AA8A00F3F66C /* Localizable.strings */; };
+		B25CF2902432DCD7007B7D7D /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CF28F2432DCD7007B7D7D /* Test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -338,6 +339,7 @@
 		96D8D0952360BC6A0025BAD6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TKRemoteControlWindowController.strings; sourceTree = "<group>"; };
 		96D8D0972360BC6C0025BAD6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TKRemoteControlWindowController.strings"; sourceTree = "<group>"; };
 		96D8D0992360BC6E0025BAD6 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/TKRemoteControlWindowController.strings"; sourceTree = "<group>"; };
+		B25CF28F2432DCD7007B7D7D /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -651,6 +653,7 @@
 				188A65E82272ACBA0096663E /* YMMessageModel.m */,
 				188A65EB2272ACBA0096663E /* YMMessageTool.h */,
 				188A65EA2272ACBA0096663E /* YMMessageTool.m */,
+				B25CF28F2432DCD7007B7D7D /* Test.swift */,
 			);
 			path = Hook;
 			sourceTree = "<group>";
@@ -882,6 +885,7 @@
 				TargetAttributes = {
 					188A654D22718C400096663E = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1140;
 					};
 					188A655622718C400096663E = {
 						CreatedOnToolsVersion = 10.1;
@@ -990,6 +994,7 @@
 				188A663A2272ACBA0096663E /* YMMessageModel.m in Sources */,
 				18A7A1632272AFE600361A98 /* GCDWebServerErrorResponse.m in Sources */,
 				188A661A2272ACBA0096663E /* TKRemoteControlModel.m in Sources */,
+				B25CF2902432DCD7007B7D7D /* Test.swift in Sources */,
 				188A65FE2272ACBA0096663E /* TKRemoteControlWindowController.m in Sources */,
 				36AC9D86228A813F00EA9F97 /* YMDownloadManager.m in Sources */,
 				18D298EE23960C18009EE6B0 /* YMAIReplyWindowController.m in Sources */,
@@ -1230,6 +1235,7 @@
 		188A656322718C400096663E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1257,12 +1263,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = MustangYM.WeChatExtension;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		188A656422718C400096663E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1290,12 +1299,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = MustangYM.WeChatExtension;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 		188A656622718C400096663E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1314,6 +1325,7 @@
 		188A656722718C400096663E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
