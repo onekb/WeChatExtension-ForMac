@@ -12,7 +12,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AppKit/AppKit.h>
 #import "YMThemeMgr.h"
-#import "ANYMethodLog.h"
 
 @interface NSCellAuxiliary : NSObject
 
@@ -29,7 +28,9 @@
     
     if ([TKWeChatPluginConfig sharedConfig].darkMode || [TKWeChatPluginConfig sharedConfig].pinkMode) {
         hookMethod(objc_getClass("MMTextField"), @selector(setTextColor:), [self class], @selector(hook_setTextColor:));
-        hookMethod(objc_getClass("NSView"), @selector(addSubview:), [self class], @selector(hook_initWithFrame:));
+        hookMethod([NSTextField class], @selector(setAttributedStringValue:), [self class], @selector(hook_textFieldSetAttributedStringValue:));
+        hookMethod(objc_getClass("MMTextView"), NSSelectorFromString(@"shouldDisableSetFrameOrigin"), [self class], @selector(hook_shouldDisableSetFrameOrigin));
+        hookMethod(objc_getClass("NSView"), @selector(addSubview:), [self class], @selector(hook_addSubView:));
         hookMethod(objc_getClass("MMComposeInputViewController"), @selector(viewDidLoad), [self class], @selector(hook_ComposeInputViewControllerViewDidLoad));
         hookMethod(objc_getClass("MMChatMessageViewController"), @selector(viewDidLoad), [self class], @selector(hook_ChatMessageViewControllerViewDidLoad));
         hookMethod(objc_getClass("NSScrollView"), @selector(initWithFrame:), [self class], @selector(hook_scrollViewInitWithFrame:));
@@ -105,6 +106,50 @@
         }
     }
     [self hook_textFieldSetTextColor:arg1];
+}
+
+#pragma mark - 防止 dark mode 黑底黑色
+- (void)hook_textFieldSetAttributedStringValue:(NSAttributedString *)attributedString
+{
+    NSTextField *field = (NSTextField *)self;
+    NSMutableAttributedString *a = [attributedString mutableCopy];
+    
+    if ([TKWeChatPluginConfig sharedConfig].darkMode) {
+        NSView *sv = field.superview;
+        
+        Class tcClass = NSClassFromString(@"MMFavoritesListTextCell");
+        Class dvClass = NSClassFromString(@"MMDragEventView");
+        
+        for (int i = 0; i < 5; i++) {
+            if (sv == nil) {
+                 break;
+            }
+            if ([sv isKindOfClass:tcClass] || [sv isKindOfClass:dvClass]) {
+                [a addAttributes:@{
+                    NSForegroundColorAttributeName: kMainTextColor
+                } range:NSMakeRange(0, a.length)];
+                break;
+            }
+            sv = sv.superview;
+        }
+    }
+    
+    [self hook_textFieldSetAttributedStringValue: a];
+}
+
+- (BOOL)hook_shouldDisableSetFrameOrigin
+{
+    NSTextView *view = (NSTextView *)self;
+    
+    if (view.superview != nil && [view.superview isKindOfClass:NSClassFromString(@"MMChatLogEventView")]) {
+        NSRange area = NSMakeRange(0, [view.textStorage length]);
+        [view.textStorage removeAttribute:NSForegroundColorAttributeName range:area];
+        [view.textStorage addAttributes:@{
+            NSForegroundColorAttributeName: kMainTextColor
+        } range:area];
+    }
+    
+    return [self hook_shouldDisableSetFrameOrigin];
 }
 
 - (void)hook_updateGroupChatNickName
@@ -342,7 +387,8 @@
     
 }
 
-- (void)hook_QRCodeViewDidLoad {
+- (void)hook_QRCodeViewDidLoad
+{
     [self hook_QRCodeViewDidLoad];
 }
 
@@ -358,23 +404,26 @@
 
 - (void)hook_setTextColor:(NSColor *)arg1
 {
-    arg1 = kRGBColor(162, 182, 203, 1.0);
+    arg1 = kMainTextColor;
     [self hook_setTextColor:arg1];
     MMTextField *textField = (MMTextField *)self;
     textField.backgroundColor = kMainBackgroundColor;
 }
 
-- (instancetype)hook_scrollViewInitWithFrame:(NSRect)frameRect {
+- (instancetype)hook_scrollViewInitWithFrame:(NSRect)frameRect
+{
     NSScrollView *view = (NSScrollView *)self;
     [[YMThemeMgr shareInstance] changeTheme:view.contentView];
     return [self hook_scrollViewInitWithFrame:frameRect];
 }
 
-- (void)hook_ChatMessageViewControllerViewDidLoad {
+- (void)hook_ChatMessageViewControllerViewDidLoad
+{
     [self hook_ChatMessageViewControllerViewDidLoad];
 }
 
-- (void)hook_ComposeInputViewControllerViewDidLoad {
+- (void)hook_ComposeInputViewControllerViewDidLoad
+{
     [self hook_ComposeInputViewControllerViewDidLoad];
     MMComposeInputViewController *controller = (MMComposeInputViewController *)self;
     [[YMThemeMgr shareInstance] changeTheme:controller.view];
@@ -392,13 +441,24 @@
     }
 }
 
-- (void)hook_initWithFrame:(NSView *)view {
-    [self hook_initWithFrame:view];
+- (void)hook_addSubView:(NSView *)view
+{
+    [self hook_addSubView:view];
     
+    //不适配小程序
+    NSArray *runApps = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.tencent.xinWeChat"];
+    if (runApps.count > 1) {
+        return;
+    }
+    
+    //Excel与Word文档黑色适配
+    if ([self isKindOfClass:[objc_getClass("MMQLPreviewFileView") class]]) {
+        return;
+    }
     
     if ([view isKindOfClass:[objc_getClass("SVGImageView") class]]) {
-           return;
-       }
+        return;
+    }
     
     if ([view isKindOfClass:[objc_getClass("MMStickerMessageCellView") class]]) {
         return;
@@ -459,14 +519,6 @@
         }
     }
     
-//    if ([view isKindOfClass:[objc_getClass("MMSearchTableSectionHeaderView") class]]) {
-//        for (NSView *sub in view.subviews) {
-//            if (![sub isKindOfClass:[NSTextField class]]) {
-//                [[YMThemeMgr shareInstance] changeTheme:sub];
-//            }
-//        }
-//    }
-    
     if ([view isKindOfClass:[objc_getClass("MMOutlineButton") class]]) {
         [[YMThemeMgr shareInstance] changeTheme:view];
     }
@@ -487,8 +539,8 @@
     #pragma mark - controller
     NSResponder *responder = view;
     NSViewController *controller = nil;
-    while ((responder = [responder nextResponder])){
-        if ([responder isKindOfClass: [NSViewController class]]){
+    while ((responder = [responder nextResponder])) {
+        if ([responder isKindOfClass: [NSViewController class]]) {
             controller = (NSViewController *)responder;
         }
     }
@@ -588,7 +640,6 @@
         return;
     }
     
-    //Fix
     if ([NSStringFromClass(self.class) containsString:@"FI_"]) {
         return;
     }

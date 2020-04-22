@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1828B9AA23BA319E008EC8E9 /* TKAboutWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1828B9A923BA319E008EC8E9 /* TKAboutWindowController.xib */; };
-		1853B3BF22C6105900A5C4FA /* ANYMethodLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1853B3BB22C6105900A5C4FA /* ANYMethodLog.m */; };
-		1853B3C122C6105900A5C4FA /* ANYMethodLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 1853B3BD22C6105900A5C4FA /* ANYMethodLog.h */; };
 		1853B3C422C6133C00A5C4FA /* YMIMContactsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1853B3C222C6133C00A5C4FA /* YMIMContactsManager.h */; };
 		1853B3C522C6133C00A5C4FA /* YMIMContactsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1853B3C322C6133C00A5C4FA /* YMIMContactsManager.m */; };
 		185DE0E023ACE208007651B5 /* NSDictionary+Safe.h in Headers */ = {isa = PBXBuildFile; fileRef = 185DE0DE23ACE207007651B5 /* NSDictionary+Safe.h */; };
@@ -139,8 +137,6 @@
 		18D4C34B24236180006A20E2 /* NSObject+ThemeHook.h in Headers */ = {isa = PBXBuildFile; fileRef = 18D4C34924236180006A20E2 /* NSObject+ThemeHook.h */; };
 		18D4C34C24236180006A20E2 /* NSObject+ThemeHook.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D4C34A24236180006A20E2 /* NSObject+ThemeHook.m */; };
 		18D8B18E227EFEC3007AE9EC /* TKRemoteControlScript.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 18D8B18D227EFDFF007AE9EC /* TKRemoteControlScript.scpt */; };
-		18ECDCF22404E7F100090014 /* NSUserDefaults+Hook.h in Headers */ = {isa = PBXBuildFile; fileRef = 18ECDCF02404E7F100090014 /* NSUserDefaults+Hook.h */; };
-		18ECDCF32404E7F100090014 /* NSUserDefaults+Hook.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ECDCF12404E7F100090014 /* NSUserDefaults+Hook.m */; };
 		18ECDCF52405194800090014 /* aliPayCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 18ECDCF42405194800090014 /* aliPayCode.png */; };
 		3632293F22A6ADB300F62EAB /* LockPlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3632293E22A6ADB300F62EAB /* LockPlist.plist */; };
 		3632294222AFD9CF00F62EAB /* YMThemeMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3632294022AFD9CF00F62EAB /* YMThemeMgr.h */; };
@@ -158,7 +154,8 @@
 		36AC9D8B228A81C200EA9F97 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 36AC9D89228A81C200EA9F97 /* XMLReader.m */; };
 		8EB413EE2E0AB9424DB91B42 /* libPods-WeChatExtensionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B176B73969A171B6926048F /* libPods-WeChatExtensionTests.a */; };
 		96B578BF2360AA8A00F3F66C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96B578C12360AA8A00F3F66C /* Localizable.strings */; };
-		B25CF2902432DCD7007B7D7D /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CF28F2432DCD7007B7D7D /* Test.swift */; };
+		D79D23592449EF5D00C391E4 /* GVUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = D79D23572449EF5C00C391E4 /* GVUserDefaults.h */; };
+		D79D235A2449EF5D00C391E4 /* GVUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = D79D23582449EF5C00C391E4 /* GVUserDefaults.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -176,8 +173,6 @@
 		1802C088239826CB0061823C /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "en-GB"; path = "en-GB.lproj/Info.plist"; sourceTree = "<group>"; };
 		1802C089239826CB0061823C /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		1828B9A923BA319E008EC8E9 /* TKAboutWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TKAboutWindowController.xib; sourceTree = "<group>"; };
-		1853B3BB22C6105900A5C4FA /* ANYMethodLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANYMethodLog.m; sourceTree = "<group>"; };
-		1853B3BD22C6105900A5C4FA /* ANYMethodLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANYMethodLog.h; sourceTree = "<group>"; };
 		1853B3C222C6133C00A5C4FA /* YMIMContactsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMIMContactsManager.h; sourceTree = "<group>"; };
 		1853B3C322C6133C00A5C4FA /* YMIMContactsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMIMContactsManager.m; sourceTree = "<group>"; };
 		185DE0DE23ACE207007651B5 /* NSDictionary+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Safe.h"; sourceTree = "<group>"; };
@@ -310,8 +305,6 @@
 		18D4C34924236180006A20E2 /* NSObject+ThemeHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+ThemeHook.h"; sourceTree = "<group>"; };
 		18D4C34A24236180006A20E2 /* NSObject+ThemeHook.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ThemeHook.m"; sourceTree = "<group>"; };
 		18D8B18D227EFDFF007AE9EC /* TKRemoteControlScript.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = TKRemoteControlScript.scpt; sourceTree = "<group>"; };
-		18ECDCF02404E7F100090014 /* NSUserDefaults+Hook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Hook.h"; sourceTree = "<group>"; };
-		18ECDCF12404E7F100090014 /* NSUserDefaults+Hook.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Hook.m"; sourceTree = "<group>"; };
 		18ECDCF42405194800090014 /* aliPayCode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aliPayCode.png; sourceTree = "<group>"; };
 		1ECC036067C0A58DC4D5A272 /* libPods-WeChatExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeChatExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3632293E22A6ADB300F62EAB /* LockPlist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LockPlist.plist; sourceTree = "<group>"; };
@@ -339,7 +332,8 @@
 		96D8D0952360BC6A0025BAD6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TKRemoteControlWindowController.strings; sourceTree = "<group>"; };
 		96D8D0972360BC6C0025BAD6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TKRemoteControlWindowController.strings"; sourceTree = "<group>"; };
 		96D8D0992360BC6E0025BAD6 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/TKRemoteControlWindowController.strings"; sourceTree = "<group>"; };
-		B25CF28F2432DCD7007B7D7D /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		D79D23572449EF5C00C391E4 /* GVUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVUserDefaults.h; sourceTree = "<group>"; };
+		D79D23582449EF5C00C391E4 /* GVUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVUserDefaults.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -366,15 +360,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1853B3B922C6105900A5C4FA /* ANYMethodLog */ = {
-			isa = PBXGroup;
-			children = (
-				1853B3BB22C6105900A5C4FA /* ANYMethodLog.m */,
-				1853B3BD22C6105900A5C4FA /* ANYMethodLog.h */,
-			);
-			path = ANYMethodLog;
-			sourceTree = "<group>";
-		};
 		188A654422718C400096663E = {
 			isa = PBXGroup;
 			children = (
@@ -420,7 +405,6 @@
 		188A658B2272ACBA0096663E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				1853B3B922C6105900A5C4FA /* ANYMethodLog */,
 				3644BDF32285545500EDE358 /* TCB */,
 				18A7A1352272AFE600361A98 /* GCDWebServer */,
 				188A658C2272ACBA0096663E /* WindowControllers */,
@@ -534,6 +518,8 @@
 		188A65B62272ACBA0096663E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D79D23572449EF5C00C391E4 /* GVUserDefaults.h */,
+				D79D23582449EF5C00C391E4 /* GVUserDefaults.m */,
 				188A65B72272ACBA0096663E /* YMHelper.h */,
 				188A65B92272ACBA0096663E /* YMHelper.m */,
 				188A65BA2272ACBA0096663E /* YMUtility.h */,
@@ -574,22 +560,22 @@
 		188A65C52272ACBA0096663E /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				188A65C62272ACBA0096663E /* NSButton+Action.m */,
-				188A65C72272ACBA0096663E /* NSMenu+Action.h */,
-				188A65C82272ACBA0096663E /* NSTextField+Action.h */,
-				188A65C92272ACBA0096663E /* NSView+Action.m */,
-				188A65CA2272ACBA0096663E /* NSWindowController+Action.m */,
-				188A65CB2272ACBA0096663E /* NSString+Action.m */,
-				188A65CC2272ACBA0096663E /* NSMenuItem+Action.h */,
-				188A65CD2272ACBA0096663E /* NSDate+Action.m */,
-				188A65CE2272ACBA0096663E /* NSMenu+Action.m */,
 				188A65CF2272ACBA0096663E /* NSButton+Action.h */,
-				188A65D02272ACBA0096663E /* NSView+Action.h */,
-				188A65D12272ACBA0096663E /* NSTextField+Action.m */,
-				188A65D22272ACBA0096663E /* NSWindowController+Action.h */,
+				188A65C62272ACBA0096663E /* NSButton+Action.m */,
 				188A65D32272ACBA0096663E /* NSDate+Action.h */,
-				188A65D42272ACBA0096663E /* NSString+Action.h */,
+				188A65CD2272ACBA0096663E /* NSDate+Action.m */,
+				188A65C72272ACBA0096663E /* NSMenu+Action.h */,
+				188A65CE2272ACBA0096663E /* NSMenu+Action.m */,
+				188A65CC2272ACBA0096663E /* NSMenuItem+Action.h */,
 				188A65D52272ACBA0096663E /* NSMenuItem+Action.m */,
+				188A65D42272ACBA0096663E /* NSString+Action.h */,
+				188A65CB2272ACBA0096663E /* NSString+Action.m */,
+				188A65C82272ACBA0096663E /* NSTextField+Action.h */,
+				188A65D12272ACBA0096663E /* NSTextField+Action.m */,
+				188A65D02272ACBA0096663E /* NSView+Action.h */,
+				188A65C92272ACBA0096663E /* NSView+Action.m */,
+				188A65D22272ACBA0096663E /* NSWindowController+Action.h */,
+				188A65CA2272ACBA0096663E /* NSWindowController+Action.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -647,8 +633,6 @@
 				188A65EF2272ACBA0096663E /* WeChat+hook.m */,
 				18D4C34924236180006A20E2 /* NSObject+ThemeHook.h */,
 				18D4C34A24236180006A20E2 /* NSObject+ThemeHook.m */,
-				18ECDCF02404E7F100090014 /* NSUserDefaults+Hook.h */,
-				18ECDCF12404E7F100090014 /* NSUserDefaults+Hook.m */,
 				188A65ED2272ACBA0096663E /* YMMessageModel.h */,
 				188A65E82272ACBA0096663E /* YMMessageModel.m */,
 				188A65EB2272ACBA0096663E /* YMMessageTool.h */,
@@ -774,9 +758,9 @@
 				18A7A1642272AFE600361A98 /* GCDWebServerDataResponse.h in Headers */,
 				18A7A15C2272AFE600361A98 /* GCDWebServerResponse.h in Headers */,
 				188A662B2272ACBA0096663E /* NSString+Action.h in Headers */,
-				1853B3C122C6105900A5C4FA /* ANYMethodLog.h in Headers */,
 				188A660B2272ACBA0096663E /* TKRemoteControlManager.h in Headers */,
 				36AC9D8A228A81C200EA9F97 /* XMLReader.h in Headers */,
+				D79D23592449EF5D00C391E4 /* GVUserDefaults.h in Headers */,
 				18D4C34B24236180006A20E2 /* NSObject+ThemeHook.h in Headers */,
 				3632294222AFD9CF00F62EAB /* YMThemeMgr.h in Headers */,
 				18A7A16A2272AFE600361A98 /* GCDWebServerMultiPartFormRequest.h in Headers */,
@@ -801,7 +785,6 @@
 				1853B3C422C6133C00A5C4FA /* YMIMContactsManager.h in Headers */,
 				18A7A1562272AFE600361A98 /* GCDWebServerPrivate.h in Headers */,
 				188A65FF2272ACBA0096663E /* TKRemoteControlWindowController.h in Headers */,
-				18ECDCF22404E7F100090014 /* NSUserDefaults+Hook.h in Headers */,
 				188A66162272ACBA0096663E /* TKRemoteControlModel.h in Headers */,
 				188A66382272ACBA0096663E /* WeChat+hook.h in Headers */,
 				18A7A1672272AFE600361A98 /* GCDWebServerErrorResponse.h in Headers */,
@@ -1037,16 +1020,15 @@
 				18A7A1682272AFE600361A98 /* GCDWebServerStreamedResponse.m in Sources */,
 				188A66092272ACBA0096663E /* TKAssistantMenuManager.m in Sources */,
 				3644BE012285549100EDE358 /* YMUpdateManager.m in Sources */,
-				1853B3BF22C6105900A5C4FA /* ANYMethodLog.m in Sources */,
 				188A663C2272ACBA0096663E /* YMMessageTool.m in Sources */,
 				188A66072272ACBA0096663E /* TKHTTPManager.m in Sources */,
 				18A7A1572272AFE600361A98 /* GCDWebServerResponse.m in Sources */,
 				188A66102272ACBA0096663E /* TKWebServerManager.m in Sources */,
 				188A66122272ACBA0096663E /* YMUtility.m in Sources */,
-				18ECDCF32404E7F100090014 /* NSUserDefaults+Hook.m in Sources */,
 				18D298F3239610F8009EE6B0 /* YMAIReplyCell.m in Sources */,
 				18A7A15A2272AFE600361A98 /* GCDWebServerRequest.m in Sources */,
 				18A7A16D2272AFE600361A98 /* GCDWebServerMultiPartFormRequest.m in Sources */,
+				D79D235A2449EF5D00C391E4 /* GVUserDefaults.m in Sources */,
 				188A66312272ACBA0096663E /* TKAutoReplyContentView.m in Sources */,
 				188A66242272ACBA0096663E /* NSDate+Action.m in Sources */,
 				18D298532394EE60009EE6B0 /* YMNetWorkHelper.m in Sources */,
