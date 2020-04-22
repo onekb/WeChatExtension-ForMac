@@ -25,7 +25,8 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
 
 @implementation TKAssistantMenuManager
 
-+ (instancetype)shareManager {
++ (instancetype)shareManager
+{
     static id manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -34,7 +35,8 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     return manager;
 }
 
-- (void)initAssistantMenuItems {
+- (void)initAssistantMenuItems
+{
     //        消息防撤回
     NSMenuItem *preventRevokeItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"开启消息防撤回", @"Revoke")
                                                            action:@selector(onPreventRevoke:)
@@ -106,7 +108,7 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     NSMenuItem *miniProgramItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"允许打开小程序", @"Allow MiniProgram to open")
                                                         action:@selector(onMiniProgramItem:)
                                                         target:self
-                                                 keyEquivalent:@"N"
+                                                 keyEquivalent:@""
                                                          state:![TKWeChatPluginConfig sharedConfig].isAllowMoreOpenBaby];
     
     //        远程控制
@@ -175,11 +177,35 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
                                              keyEquivalent:@""
                                                      state:0];
     
-    NSMenuItem *darkModeItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"黑夜模式", @"Dark Mode")
-                                                        action:@selector(onChangeDarkMode:)
+    NSMenuItem *backGroundItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"主题模式", @"Dark Mode")
+                                                        action:nil
                                                         target:self
-                                                 keyEquivalent:@"N"
-                                                         state:[TKWeChatPluginConfig sharedConfig].darkMode];
+                                                 keyEquivalent:@""
+                                                         state:[TKWeChatPluginConfig sharedConfig].darkMode || [TKWeChatPluginConfig sharedConfig].pinkMode];
+    
+    NSMenuItem *darkModeItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"黑夜模式", @"Dark Mode")
+                                                      action:@selector(onChangeDarkMode:)
+                                                      target:self
+                                               keyEquivalent:@"N"
+                                                       state:[TKWeChatPluginConfig sharedConfig].darkMode];
+    
+    NSMenuItem *pinkColorItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"粉色模式", @"Pink Mode")
+                                                       action:@selector(onChangePinkModel:)
+                                                       target:self
+                                                keyEquivalent:@""
+                                                        state:[TKWeChatPluginConfig sharedConfig].pinkMode];
+    
+    NSMenuItem *groupMulticolorItem = [NSMenuItem menuItemWithTitle:YMLanguage(@"群成员彩色", @"Group Member Multicolor")
+                                                             action:@selector(onGroupMultiColorModel:)
+                                                             target:self
+                                                      keyEquivalent:@""
+                                                              state:[TKWeChatPluginConfig sharedConfig].groupMultiColorMode];
+    
+    NSMenu *subBackgroundMenu = [[NSMenu alloc] initWithTitle:@""];
+    [subBackgroundMenu addItems:@[darkModeItem, pinkColorItem, groupMulticolorItem]];
+    backGroundItem.submenu = subBackgroundMenu;
+    
+    
     
     
     NSMenu *subPluginMenu = [[NSMenu alloc] initWithTitle:YMLocalizedString(@"assistant.menu.other")];
@@ -198,10 +224,10 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
                         onTopItem,
                         autoAuthItem,
                         enableSystemBrowserItem,
+                        backGroundItem,
                         pluginItem,
+                        aboutPluginItem,
                         currentVersionItem,
-                        darkModeItem,
-                        aboutPluginItem
                         ]];
 
     id wechat = LargerOrEqualVersion(@"2.3.24") ? [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("MMUpdateMgr")] : [objc_getClass("WeChat") sharedInstance];
@@ -219,31 +245,36 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
 
 #pragma mark - 监听 WeChatPluginConfig
 
-- (void)addObserverWeChatConfig {
+- (void)addObserverWeChatConfig
+{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weChatPluginConfigAutoReplyChange) name:NOTIFY_AUTO_REPLY_CHANGE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weChatPluginConfigPreventRevokeChange) name:NOTIFY_PREVENT_REVOKE_CHANGE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weChatPluginConfigAutoAuthChange) name:NOTIFY_AUTO_AUTH_CHANGE object:nil];
 }
 
-- (void)weChatPluginConfigAutoReplyChange {
+- (void)weChatPluginConfigAutoReplyChange
+{
     TKWeChatPluginConfig *shareConfig = [TKWeChatPluginConfig sharedConfig];
     shareConfig.autoReplyEnable = !shareConfig.autoReplyEnable;
     [self changePluginMenuItemWithIndex:1 state:shareConfig.autoReplyEnable];
 }
 
-- (void)weChatPluginConfigPreventRevokeChange {
+- (void)weChatPluginConfigPreventRevokeChange
+{
     TKWeChatPluginConfig *shareConfig = [TKWeChatPluginConfig sharedConfig];
     shareConfig.preventRevokeEnable = !shareConfig.preventRevokeEnable;
     [self changePluginMenuItemWithIndex:0 state:shareConfig.preventRevokeEnable];
 }
 
-- (void)weChatPluginConfigAutoAuthChange {
+- (void)weChatPluginConfigAutoAuthChange
+{
     TKWeChatPluginConfig *shareConfig = [TKWeChatPluginConfig sharedConfig];
     shareConfig.autoAuthEnable = !shareConfig.autoAuthEnable;
     [self changePluginMenuItemWithIndex:5 state:shareConfig.autoAuthEnable];
 }
 
-- (void)changePluginMenuItemWithIndex:(NSInteger)index state:(NSControlStateValue)state {
+- (void)changePluginMenuItemWithIndex:(NSInteger)index state:(NSControlStateValue)state
+{
     NSMenuItem *pluginMenuItem = [[[[NSApplication sharedApplication] mainMenu] itemArray] lastObject];
     NSMenuItem *item = pluginMenuItem.submenu.itemArray[index];
     item.state = state;
@@ -255,7 +286,8 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
  
  @param item 消息防撤回的item
  */
-- (void)onPreventRevoke:(NSMenuItem *)item {
+- (void)onPreventRevoke:(NSMenuItem *)item
+{
     item.state = !item.state;
     [[TKWeChatPluginConfig sharedConfig] setPreventRevokeEnable:item.state];
     if (item.state) {
@@ -304,12 +336,14 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
  
  @param item 消息防撤回的item
  */
-- (void)onPreventSelfRevoke:(NSMenuItem *)item {
+- (void)onPreventSelfRevoke:(NSMenuItem *)item
+{
     item.state = !item.state;
     [[TKWeChatPluginConfig sharedConfig] setPreventSelfRevokeEnable:item.state];
 }
 
-- (void)onPreventAsyncRevokeToPhone:(NSMenuItem *)item {
+- (void)onPreventAsyncRevokeToPhone:(NSMenuItem *)item
+{
     item.state = !item.state;
     [[TKWeChatPluginConfig sharedConfig] setPreventAsyncRevokeToPhone:item.state];
     [[TKWeChatPluginConfig sharedConfig] setPreventAsyncRevokeSignal:item.state];
@@ -333,12 +367,14 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     }
 }
 
-- (void)onAsyncRevokeSignal:(NSMenuItem *)item {
+- (void)onAsyncRevokeSignal:(NSMenuItem *)item
+{
     item.state = !item.state;
     [[TKWeChatPluginConfig sharedConfig] setPreventAsyncRevokeSignal:item.state];
 }
 
-- (void)onAsyncRevokeChatRoom:(NSMenuItem *)item {
+- (void)onAsyncRevokeChatRoom:(NSMenuItem *)item
+{
     item.state = !item.state;
     [[TKWeChatPluginConfig sharedConfig] setPreventAsyncRevokeChatRoom:item.state];
 }
@@ -348,7 +384,8 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
  
  @param item 自动回复设置的item
  */
-- (void)onAutoReply:(NSMenuItem *)item {
+- (void)onAutoReply:(NSMenuItem *)item
+{
     WeChat *wechat = [objc_getClass("WeChat") sharedInstance];
     TKAutoReplyWindowController *autoReplyWC = objc_getAssociatedObject(wechat, &kAutoReplyWindowControllerKey);
 
@@ -359,7 +396,8 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     [autoReplyWC show];
 }
 
-- (void)onAutoAIReply:(NSMenuItem *)item {
+- (void)onAutoAIReply:(NSMenuItem *)item
+{
     WeChat *wechat = [objc_getClass("WeChat") sharedInstance];
       YMAIReplyWindowController *autoReplyWC = objc_getAssociatedObject(wechat, &kAIAutoReplyWindowControllerKey);
 
@@ -370,13 +408,15 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
       [autoReplyWC show];
 }
 
-- (void)onQuitMonitorItem:(NSMenuItem *)item {
+- (void)onQuitMonitorItem:(NSMenuItem *)item
+{
     item.state = !item.state;
     [[TKWeChatPluginConfig sharedConfig] setQuitMonitorEnable:item.state];
 }
 
 
-- (void)onMiniProgramItem:(NSMenuItem *)item {
+- (void)onMiniProgramItem:(NSMenuItem *)item
+{
     if ([TKWeChatPluginConfig sharedConfig].isAllowMoreOpenBaby) {
         NSAlert *alert = [NSAlert alertWithMessageText:YMLanguage(@"警告", @"WARNING")
                                          defaultButton:YMLanguage(@"取消", @"cancel")                       alternateButton:YMLanguage(@"确定重启",@"restart")
@@ -390,14 +430,15 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
                     [[NSApplication sharedApplication] terminate:wself];
                 });
             });
-        }  else if(action == NSAlertOtherReturn){
+        }  else if (action == NSAlertOtherReturn) {
         }
     } else {
  
     }
 }
 
-- (void)onNewWechatInstance:(NSMenuItem *)item {
+- (void)onNewWechatInstance:(NSMenuItem *)item
+{
     
     if ([TKWeChatPluginConfig sharedConfig].isAllowMoreOpenBaby) {
         [TKWeChatPluginConfig sharedConfig].launchFromNew = YES;
@@ -415,7 +456,7 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
                     [[NSApplication sharedApplication] terminate:wself];
                 });
             });
-        }  else if(action == NSAlertOtherReturn){
+        }  else if (action == NSAlertOtherReturn) {
         }
     }
 }
@@ -425,7 +466,8 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
  
  @param item 远程控制的item
  */
-- (void)onRemoteControl:(NSMenuItem *)item {
+- (void)onRemoteControl:(NSMenuItem *)item
+{
     WeChat *wechat = [objc_getClass("WeChat") sharedInstance];
     TKRemoteControlWindowController *remoteControlWC = objc_getAssociatedObject(wechat, &kRemoteControlWindowControllerKey);
     
@@ -442,7 +484,8 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
  
  @param item 免认证登录的 item
  */
-- (void)onAutoAuthControl:(NSMenuItem *)item {
+- (void)onAutoAuthControl:(NSMenuItem *)item
+{
     item.state = !item.state;
     [[TKWeChatPluginConfig sharedConfig] setAutoAuthEnable:item.state];
 }
@@ -452,7 +495,8 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
  
  @param item 窗口置顶的 item
  */
-- (void)onWechatOnTopControl:(NSMenuItem *)item {
+- (void)onWechatOnTopControl:(NSMenuItem *)item
+{
     item.state = !item.state;
     [[TKWeChatPluginConfig sharedConfig] setOnTop:item.state];
     
@@ -469,7 +513,8 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
  
  @param item 更新小助手的 item
  */
-- (void)onUpdatePluginControl:(NSMenuItem *)item {
+- (void)onUpdatePluginControl:(NSMenuItem *)item
+{
     [[TKWeChatPluginConfig sharedConfig] setForbidCheckVersion:NO];
     [[TKVersionManager shareManager] checkVersionFinish:^(TKVersionStatus status, NSString *message) {
         if (status == TKVersionStatusNew) {
@@ -491,7 +536,8 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     }];
 }
 
-- (void)onEnableaAlfred:(NSMenuItem *)item {
+- (void)onEnableaAlfred:(NSMenuItem *)item
+{
     item.state = !item.state;
     if (item.state) {
         [[TKWebServerManager shareManager] startServer];
@@ -501,17 +547,20 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     [[TKWeChatPluginConfig sharedConfig] setAlfredEnable:item.state];
 }
 
-- (void)onEnableSystemBrowser:(NSMenuItem *)item {
+- (void)onEnableSystemBrowser:(NSMenuItem *)item
+{
     item.state = !item.state;
     [[TKWeChatPluginConfig sharedConfig] setSystemBrowserEnable:item.state];
 }
 
-- (void)onForbidWeChatCheckUpdate:(NSMenuItem *)item {
+- (void)onForbidWeChatCheckUpdate:(NSMenuItem *)item
+{
     item.state = !item.state;
     [[TKWeChatPluginConfig sharedConfig] setCheckUpdateWechatEnable:!item.state];
 }
 
-- (void)onAboutPluginControl:(NSMenuItem *)item {
+- (void)onAboutPluginControl:(NSMenuItem *)item
+{
     WeChat *wechat = [objc_getClass("WeChat") sharedInstance];
     TKAboutWindowController *remoteControlWC = objc_getAssociatedObject(wechat, &kAboutWindowControllerKey);
     
@@ -523,14 +572,14 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     [remoteControlWC show];
 }
 
-- (void)onCurrentVersion:(NSMenuItem *)item {
+- (void)onCurrentVersion:(NSMenuItem *)item
+{
     
 }
 
-- (void)onChangeDarkMode:(NSMenuItem *)item {
+- (void)onChangeDarkMode:(NSMenuItem *)item
+{
     item.state = !item.state;
-    [[TKWeChatPluginConfig sharedConfig] setDarkMode:item.state];
-    
     NSString *msg = nil;
     if (item.state) {
         msg = YMLanguage(@"打开黑夜模式, 重启生效!",@"Turn on dark mode and restart to take effect!");
@@ -543,14 +592,81 @@ static char kAboutWindowControllerKey;             //  关于窗口的关联 key
     NSUInteger action = [alert runModal];
     if (action == NSAlertAlternateReturn) {
         __weak __typeof (self) wself = self;
-        [[TKWeChatPluginConfig sharedConfig] setIsAllowMoreOpenBaby:NO];
+        [[TKWeChatPluginConfig sharedConfig] setDarkMode:item.state];
+        item.state ? [[TKWeChatPluginConfig sharedConfig] setPinkMode:NO] : nil;
+        !item.state ? [[TKWeChatPluginConfig sharedConfig] setGroupMultiColorMode:NO] : nil;
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 [[NSApplication sharedApplication] terminate:wself];
             });
         });
-    }  else if(action == NSAlertOtherReturn){
+    }  else if (action == NSAlertDefaultReturn) {
+        item.state = !item.state;
     }
    
+}
+
+- (void)onChangePinkModel:(NSMenuItem *)item
+{
+    item.state = !item.state;
+    NSString *msg = nil;
+    if (item.state) {
+        msg = YMLanguage(@"打开粉色模式, 重启生效!",@"Turn on Pink mode and restart to take effect!");
+    } else {
+        msg = YMLanguage(@"关闭粉色模式, 重启生效!",@"Turn off Pink mode and restart to take effect!");
+    }
+    NSAlert *alert = [NSAlert alertWithMessageText:YMLanguage(@"警告", @"WARNING")
+                                     defaultButton:YMLanguage(@"取消", @"cancel")                       alternateButton:YMLanguage(@"确定重启",@"restart")
+                                       otherButton:nil                              informativeTextWithFormat:@"%@", msg];
+    NSUInteger action = [alert runModal];
+    if (action == NSAlertAlternateReturn) {
+        __weak __typeof (self) wself = self;
+        [[TKWeChatPluginConfig sharedConfig] setPinkMode:item.state];
+        item.state ? [[TKWeChatPluginConfig sharedConfig] setDarkMode:NO] : nil;
+        item.state ? [[TKWeChatPluginConfig sharedConfig] setGroupMultiColorMode:NO] : nil;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [[NSApplication sharedApplication] terminate:wself];
+            });
+        });
+    }  else if (action == NSAlertDefaultReturn) {
+        item.state = !item.state;
+    }
+    
+}
+
+- (void)onGroupMultiColorModel:(NSMenuItem *)item
+{
+    item.state = !item.state;
+    
+    NSString *msg = nil;
+    if ([[TKWeChatPluginConfig sharedConfig] pinkMode]) {
+        msg = YMLanguage(@"只在黑暗模式有效",@"GroupMultiColor mode only in dark mode has effect!");
+    } else {
+        if (item.state) {
+            msg = YMLanguage(@"打开群成员昵称彩色, 只在黑暗模式有效, 重启生效!",@"Turn on GroupMultiColor mode only in dark mode and restart to take effect!");
+        } else {
+            msg = YMLanguage(@"关闭群成员昵称彩色, 重启生效!",@"Turn off GroupMultiColor mode and restart to take effect!");
+        }
+    }
+    
+    NSAlert *alert = [NSAlert alertWithMessageText:YMLanguage(@"警告", @"WARNING")
+                                     defaultButton:YMLanguage(@"取消", @"cancel")
+                                   alternateButton: [[TKWeChatPluginConfig sharedConfig] darkMode] ? YMLanguage(@"确定重启",@"restart") : nil
+                                       otherButton:nil                              informativeTextWithFormat:@"%@", msg];
+    NSUInteger action = [alert runModal];
+    if (action == NSAlertAlternateReturn) {
+        __weak __typeof (self) wself = self;
+         [[TKWeChatPluginConfig sharedConfig] setGroupMultiColorMode:item.state];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [[NSApplication sharedApplication] terminate:wself];
+            });
+        });
+    }  else if (action == NSAlertDefaultReturn) {
+        item.state = !item.state;
+    }
 }
 @end

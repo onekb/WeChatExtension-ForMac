@@ -1,8 +1,8 @@
 //
-//  NSUserDefaults+Hook.h
+//  NSObject+ThemeHook.h
 //  WeChatExtension
 //
-//  Created by MustangYM on 2020/2/25.
+//  Created by MustangYM on 2020/3/19.
 //  Copyright © 2020 MustangYM. All rights reserved.
 //
 
@@ -13,8 +13,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSUserDefaults (Hook)
-
+@interface NSObject (ThemeHook)
++ (void)hookTheme;
 @end
 
 NS_ASSUME_NONNULL_END
