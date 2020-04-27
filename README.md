@@ -28,7 +28,7 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/face.png" width="1000px"/>
 </p>
 
-![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.5.4-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.0-blue.svg)
+![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.5.6-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.0-blue.svg)
 
 支持[企业微信](https://github.com/MustangYM/WeChatICU-ForMac)，由此进。
 
@@ -38,7 +38,7 @@
 - Issues注意事项[Wiki](https://github.com/MustangYM/WeChatExtension-ForMac/wiki/Issues%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)
 
 ## 最新支持版本
--  mac版微信2.4.0
+-  mac版微信2.4.0.149
 -  微信2.4.0版本以上才支持小程序 [去下载](https://developers.weixin.qq.com/community/develop/doc/0000a0544fcfc013c8b9d164a5b801)
 
 ## 黑夜/少女 模式
@@ -177,6 +177,7 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
 
 ## 更新日志
 ```
+2020-04-26 崩溃拦截， 修复收藏中笔记显示BUG，适配2.4.0.149群语音或视频显示，修复公众列表右键点击BUG，茱萸粉皮肤
 2020-04-16 修复小程序、Word、Excel不显示
 2020-04-13 2.5.4版本在2.3.26微信上启动会闪退， 已经修复。
 2020-04-10 修复免认证登录后左下角"小手机"不显示， 远程控制/自动回复/关于界面适配黑暗模式。
@@ -356,6 +357,23 @@ This project exists thanks to all the people who contribute。
    <td align="center">
   <a href="https://github.com/cnlinjie"><img src="https://avatars1.githubusercontent.com/u/3601638?s=400&u=fa07b0ab31f248e87687ad587ba7af0f23f8ffc7&v=4" width="100px;" alt="cnlinjie"/>
   <br></br><sub><b>cnlinjie</b></sub>
+ 
+  </td></tr></table>
+  
+  
+  <table><tr>
+ 
+   <td align="center">
+  <a href="https://github.com/befuture"><img src="https://avatars2.githubusercontent.com/u/2246922?s=400&v=4" width="100px;" alt="befuture"/>
+  <br></br><sub><b>befuture</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/crbee"><img src="https://avatars2.githubusercontent.com/u/18109072?s=400&v=4" width="100px;" alt="crbee"/>
+  <br></br><sub><b>crbee</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/elrond-g"><img src="https://avatars2.githubusercontent.com/u/6926269?s=400&v=4" width="100px;" alt="elrond-g"/>
+  <br></br><sub><b>elrond-g</b></sub>
  
   </td></tr></table>
 
