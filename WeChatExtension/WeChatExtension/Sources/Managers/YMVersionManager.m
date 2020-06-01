@@ -1,25 +1,25 @@
 //
-//  TKVersionManager.m
+//  YMVersionManager.m
 //  WeChatExtension
 //
 //  Created by WeChatExtension on 2018/2/24.
 //  Copyright © 2018年 WeChatExtension. All rights reserved.
 //
 
-#import "TKVersionManager.h"
+#import "YMVersionManager.h"
 #import "TKWeChatPluginConfig.h"
-#import "TKHTTPManager.h"
-#import "TKRemoteControlManager.h"
-#import "TKCacheManager.h"
+#import "YMHTTPManager.h"
+#import "YMRemoteControlManager.h"
+#import "YMCacheManager.h"
 
-@implementation TKVersionManager
+@implementation YMVersionManager
 
 + (instancetype)shareManager
 {
-    static TKVersionManager *manager = nil;
+    static YMVersionManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [[TKVersionManager alloc] init];
+        manager = [[YMVersionManager alloc] init];
     });
     return manager;
 }
@@ -57,7 +57,7 @@
 
 - (void)downloadPluginProgress:(void (^)(NSProgress *downloadProgress))downloadProgressBlock completionHandler:(void (^)(NSString *filePath, NSError * _Nullable error))completionHandler
 {
-    NSString *cachesPath = [[TKCacheManager shareManager] getUpdateSandboxFilePathWithName:@""];
+    NSString *cachesPath = [[YMCacheManager shareManager] getUpdateSandboxFilePathWithName:@""];
     NSString *pluginName = @"WeChatExtension";
     NSString *pluginPath = [NSString stringWithFormat:@"%@/%@",cachesPath,pluginName];
     NSString *pluginZipPath = [NSString stringWithFormat:@"%@.zip",pluginPath];
@@ -67,7 +67,7 @@
     [fileManager removeItemAtPath:pluginZipPath error:nil];
     
     NSString *urlString = @"https://github.com/MustangYM/WeChatExtension-ForMac/raw/master/WeChatExtension/Rely/Plugin/WeChatExtension.zip";
-    [[TKHTTPManager shareManager] downloadWithUrlString:urlString toDirectoryPah:cachesPath progress:^(NSProgress *downloadProgress) {
+    [[YMHTTPManager shareManager] downloadWithUrlString:urlString toDirectoryPah:cachesPath progress:^(NSProgress *downloadProgress) {
         if (downloadProgressBlock) {
              downloadProgressBlock(downloadProgress);
         }
@@ -80,6 +80,6 @@
 
 - (void)cancelDownload
 {
-    [[TKHTTPManager shareManager] cancelDownload];
+    [[YMHTTPManager shareManager] cancelDownload];
 }
 @end

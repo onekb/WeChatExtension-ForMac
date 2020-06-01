@@ -28,25 +28,35 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/face.png" width="1000px"/>
 </p>
 
-![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.5.6-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.0-blue.svg)
+![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.5.7-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.0-blue.svg)
 
-支持[企业微信](https://github.com/MustangYM/WeChatICU-ForMac)，由此进。
+- 支持[企业微信](https://github.com/MustangYM/WeChatICU-ForMac)，由此进。
+- 如果你希望更简约，这里提供了[简版小助手](https://github.com/MustangYM/WeChatSeptet-ForMac)，安装方式与WeChatExtension的手动安装方式一样。
 
 ## 声明
 
-- 适用于Mac版的WeChat拓展功能。 1.7.5代码来自于WeChatPlugin， 对[TK](https://github.com/TKkk-iOSer)在此表示感谢！
-- Issues注意事项[Wiki](https://github.com/MustangYM/WeChatExtension-ForMac/wiki/Issues%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)
+- 适用于Mac版的WeChat拓展功能。 1.7.5代码来自于[WeChatPlugin](https://github.com/TKkk-iOSer/WeChatPlugin-MacOS)， 对[TK](https://github.com/TKkk-iOSer)在此表示感谢！
+- Issues注意事项[Wiki](https://github.com/MustangYM/WeChatExtension-ForMac/wiki/Issues%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)。
+- 到目前为止，并未发现因使用本插件会导致封号。但`开启`本插件的`Alfred`功能存在有被攻击的`风险`，[腾讯安全玄武实验室所披露的漏洞](https://xlab.tencent.com/cn/2018/10/23/weixin-cheater-risks/)。
 
 ## 最新支持版本
 -  mac版微信2.4.0.149
 -  微信2.4.0版本以上才支持小程序 [去下载](https://developers.weixin.qq.com/community/develop/doc/0000a0544fcfc013c8b9d164a5b801)
 
-## 黑夜/少女 模式
+## 黑夜/深邃/少女 模式
 - 众多软件都适配了黑夜模式， 等了这么久Mac微信官方还是没做适配。所以做了这个玩票功能。
 - 少量细节没有做适配， 不影响正常使用， 如果你是强迫症加完美主义， `主题模式-黑夜模式-再次点击`可以`关掉`这个功能。
 - 在黑夜模式中你可以打开`群成员彩色`， 群聊中每个发言人的昵称颜色都会有所区别。
+
+- 黑夜模式
+
 <p align="center">
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/darkMode.png" width="800px"/>
+</p>
+
+- 深邃模式
+<p align="center">
+<img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/blackMode.png" width="800px"/>
 </p>
 
 - 少女粉模式
@@ -59,15 +69,10 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/changeMode.png" width="300px"/>
 </p>
 
-## 消息防撤回
-<p align="center">
-<img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/revoke.gif" width="800px"/>
-</p>
-
 ## 手机端也能收到被撤回的消息
 - 如果Mac拦截到A发送来的消息， 手机也会同步收到的这条已经拦截的消息(自己发送给自己)。目前只支持同步文字消息与图片消息， 其他类型也可以做， 但意义不大。
 <p align="center">
-<img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/revokeAsync.jpg" width="800px"/>
+<img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/revokeAsync.png" width="800px"/>
 </p>
 
 - 可以对同步的消息进行筛选， 以免群消息打扰。
@@ -77,7 +82,7 @@
 
 ## 免认证登录与多开
 <p align="center">
-<img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/launch.gif" width="800px"/>
+<img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/launch.png" width="800px"/>
 </p>
 
 ## 同时支持自定义回复和AI自动撩妹
@@ -99,6 +104,8 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/WX20191217-1036331%402x.png" width="800px"/>
 </p>
 
+- 依次点击 `小助手` -> `开启Alfred功能`
+- 打开你的Alfred搜索框， 输入 `wx `(wx后面接一个空格)，即可开启Alfred控制微信之旅
 ## 退群监控
 - 退群提醒， 同一人在同一群里的退出提醒7天内不再重复提示。
 <p align="center">
@@ -110,7 +117,8 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/MiniProgram.png" width="800px"/>
 </p>
 
-
+- 目前并没有找到有效的办法解决微信多开和打开小程序的冲突，当微信A能解决与小程序的冲突并共存，但此时多开的微信B还是无法打开小程序。
+- 所以`微信多开`与`允许打开小程序`是互斥的，点击`微信多开`可关闭`允许打开小程序`，反之也是如此。
 
 ## 怎么安装?
 ### 1.普通安装(clone最新版本并安装)
@@ -129,7 +137,7 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
 打开`应用程序-实用工具-Terminal(终端)`，执行下面的命令安装 [Oh My WeChat](https://github.com/lmk123/oh-my-wechat)：
 
 ```sh
-curl -o- -L https://raw.githubusercontent.com/lmk123/oh-my-wechat/master/install.sh | bash -s
+curl -o- -L https://omw.limingkai.cn/install.sh | bash -s
 ```
 
 安装完成后会自动安装微信插件，可以访问 [Oh My WeChat 的项目主页](https://github.com/lmk123/oh-my-wechat#oh-my-wechat)查看更多用法。
@@ -177,8 +185,9 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
 
 ## 更新日志
 ```
-2020-04-26 崩溃拦截， 修复收藏中笔记显示BUG，适配2.4.0.149群语音或视频显示，修复公众列表右键点击BUG，茱萸粉皮肤
-2020-04-16 修复小程序、Word、Excel不显示
+2020-05-07 新增深邃模式，退群监控性能优化，修复搜索界面BUG，修复消息引用BUG。
+2020-04-26 崩溃拦截， 修复收藏中笔记显示BUG，适配2.4.0.149群语音或视频显示，修复公众列表右键点击BUG，茱萸粉皮肤。
+2020-04-16 修复小程序、Word、Excel不显示。
 2020-04-13 2.5.4版本在2.3.26微信上启动会闪退， 已经修复。
 2020-04-10 修复免认证登录后左下角"小手机"不显示， 远程控制/自动回复/关于界面适配黑暗模式。
 2020-03-31 会话列表抖动， 联系人列表优化， 群成员列表优化。
@@ -203,7 +212,7 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
 2019-6-28 修复消息筛选Bug， 群聊撤回同步到手机显示真实联系人昵称。
 2019-6-25 适配OSX 10.9。
 2019-6-25 消息防撤回同步到手机， 增加筛选功能， 可以只同步群聊或单聊。
-2019-6-19 详细安装方法
+2019-6-19 详细安装方法。
 2019-6-5  修复会话多选闪退， 点击公众号类型消息闪退。
 2019-5-28 支持系统浏览器打开网页。
 2019-5-14 如果Mac拦截到A发送来的消息， 手机也会同步收到的这条已经拦截的消息， 小助手一键更新。
@@ -374,6 +383,43 @@ This project exists thanks to all the people who contribute。
    <td align="center">
   <a href="https://github.com/elrond-g"><img src="https://avatars2.githubusercontent.com/u/6926269?s=400&v=4" width="100px;" alt="elrond-g"/>
   <br></br><sub><b>elrond-g</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/feicun2"><img src="https://avatars1.githubusercontent.com/u/18099292?s=400&v=4" width="100px;" alt="feicun2"/>
+  <br></br><sub><b>feicun2</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/linvaux"><img src="https://avatars2.githubusercontent.com/u/33976489?s=400&u=27f32d8834a2f087c045115a30a9a7561e06fbac&v=4" width="100px;" alt="linvaux"/>
+  <br></br><sub><b>linvaux</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/blackux"><img src="https://avatars0.githubusercontent.com/u/29528771?s=400&u=c84394df6e33d6238d4222425ff32da093e4b44b&v=4" width="100px;" alt="blackux"/>
+  <br></br><sub><b>blackux</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/Qwenjin"><img src="https://avatars1.githubusercontent.com/u/15087970?s=400&u=2007a686733e6620b5dc93c8bb9153060be1cb9e&v=4" width="100px;" alt="Qwenjin"/>
+  <br></br><sub><b>Qwenjin</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/mritd"><img src="https://avatars1.githubusercontent.com/u/13043245?s=400&u=d8a792673e23bb2fad29cdde25a45a60dda2db96&v=4" width="100px;" alt="mritd"/>
+  <br></br><sub><b>mritd</b></sub>
+ 
+  </td></tr></table>
+
+
+  <table><tr>
+ 
+   <td align="center">
+  <a href="https://github.com/hsing0527"><img src="https://avatars0.githubusercontent.com/u/57891696?s=400&u=994b194f51551cfa5f4cd4282462ec8d6c258455&v=4" width="100px;" alt="hsing0527"/>
+  <br></br><sub><b>hsing0527</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/rodren-lion"><img src="https://avatars0.githubusercontent.com/u/60810175?s=400&v=4" width="100px;" alt="rodren-lion"/>
+  <br></br><sub><b>rodren-lion</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/aleecy"><img src="https://avatars0.githubusercontent.com/u/15871392?s=400&u=14ae820927d89cc2158501f8e37ec8b6c11abbd6&v=4" width="100px;" alt="aleecy"/>
+  <br></br><sub><b>aleecy</b></sub>
  
   </td></tr></table>
 
