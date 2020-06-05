@@ -105,8 +105,32 @@
     
     [self setup];
     
+    hookMethod(objc_getClass("GroupStorage"), @selector(addChatMemberNeedVerifyMsg:ContactList:), [self class], @selector(hook_addChatMemberNeedVerifyMsg:ContactList:));
+    
+    hookMethod(objc_getClass("MMChatMemberListViewController"), @selector(startAGroupChatWithSelectedUserNames:), [self class], @selector(hook_startAGroupChatWithSelectedUserNames:));
 }
 
+- (void)hook_startAGroupChatWithSelectedUserNames:(id)arg1
+{
+    
+    [self hook_startAGroupChatWithSelectedUserNames:arg1];
+    
+}
+
+- (void)hook_addChatMemberNeedVerifyMsg:(id)arg1 ContactList:(id)arg2
+{
+    [self hook_addChatMemberNeedVerifyMsg:arg1 ContactList:arg2];
+    WCContactData *chatroomData = (WCContactData *)arg1;
+    NSDictionary *verifyDict = (NSDictionary *)arg2;
+    [[YMIMContactsManager shareInstance] checkStranger:verifyDict chatroom:chatroomData.m_nsUsrName];
+}
+
+//+ (void)hook_OnModContacts_Thread:(void *)arg2
+//{
+//    GroupStorage *groupStorage = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("GroupStorage")];
+////    WCContactData *data = [groupStorage GetGroupMemberContact:username];
+//    [self hook_OnModContacts_Thread:arg2];
+//}
 
 //主控制器的生命周期
 - (void)hook_mainViewControllerDidLoad {
