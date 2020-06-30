@@ -28,7 +28,7 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/face.png" width="1000px"/>
 </p>
 
-![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.5.9-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.0-blue.svg)
+![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.6.0-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.0-blue.svg)
 
 - 支持[企业微信](https://github.com/MustangYM/WeChatICU-ForMac)，由此进。
 - 如果你希望更简约，这里提供了[简版小助手](https://github.com/MustangYM/WeChatSeptet-ForMac)，安装方式与WeChatExtension的手动安装方式一样。
@@ -144,6 +144,10 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
 ```sh
 curl -o- -L https://omw.limingkai.cn/install.sh | bash -s
 ```
+Oh My WeChat一键命令
+
+- `omw -n`：跳过检查更新的步骤，优先使用下载过的安装包安装小助手。
+- `omw -g`：默认情况下，omw 会从[国内的镜像仓库](https://gitee.com/mirrors/wechatextension-formac)检查更新及下载安装包，镜像仓库每天同步一次 [GitHub 仓库](https://github.com/MustangYM/WeChatExtension-ForMac)，检查更新时可能不会及时发现最新版本，如果要确保安装最新版本，可以添加 `-g` 参数从 GitHub 仓库检查更新及下载安装包，但由于网络不稳定，可能会失败。**注意：目前国内镜像仓库无法正常下载小助手，请使用 `omw -g` 或者 `omw load` 命令安装小助手。**
 
 安装完成后会自动安装微信插件，可以访问 [Oh My WeChat 的项目主页](https://github.com/lmk123/oh-my-wechat#oh-my-wechat)查看更多用法。
 
@@ -190,8 +194,9 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
 
 ## 更新日志
 ```
-2020-06-11 下架僵尸粉检测功能，修复聊天记录不完整BUG
-2020-06-03 检测僵尸粉
+2020-06-30 修复内存泄露导致的越用越卡顿，修复打字卡顿。
+2020-06-11 下架僵尸粉检测功能，修复聊天记录不完整BUG。
+2020-06-03 检测僵尸粉。
 2020-05-07 新增深邃模式，退群监控性能优化，修复搜索界面BUG，修复消息引用BUG。
 2020-04-26 崩溃拦截， 修复收藏中笔记显示BUG，适配2.4.0.149群语音或视频显示，修复公众列表右键点击BUG，茱萸粉皮肤。
 2020-04-16 修复小程序、Word、Excel不显示。
@@ -255,6 +260,10 @@ This project exists thanks to all the people who contribute。
   <a href="https://github.com/y451687300"><img src="https://avatars1.githubusercontent.com/u/35559412?s=400&v=4" width="100px;" alt="y451687300"/>
   <br></br><sub><b>y451687300</b></sub>
   
+</td></tr></table>
+
+<table><tr>
+ 
    <td align="center">
   <a href="https://github.com/imjonat"><img src="https://avatars0.githubusercontent.com/u/42567368?s=400&v=4" width="100px;" alt="imjonat"/>
   <br></br><sub><b>imjonat</b></sub>
@@ -266,9 +275,6 @@ This project exists thanks to all the people who contribute。
    <td align="center">
   <a href="https://github.com/snowdreams1006"><img src="https://avatars1.githubusercontent.com/u/23238267?s=400&v=4" width="100px;" alt="snowdreams1006"/>
   <br></br><sub><b>snowdreams1006</b></sub>
-</td></tr></table>
-
-<table><tr>
  
    <td align="center">
     <a href="https://github.com/lvsijian8"><img src="https://avatars0.githubusercontent.com/u/19362089?s=400&v=4" width="100px;" alt="lvsijian8"/>
@@ -277,6 +283,10 @@ This project exists thanks to all the people who contribute。
    <td align="center">
   <a href="https://github.com/TheColdVoid"><img src="https://avatars2.githubusercontent.com/u/10008227?s=400&v=4" width="100px;" alt="TheColdVoid"/>
   <br></br><sub><b>TheColdVoid</b></sub>   
+ 
+</td></tr></table>
+
+ <table><tr>
  
    <td align="center">
   <a href="https://github.com/Yaidea"><img src="https://avatars2.githubusercontent.com/u/61902523?s=400&v=4" width="100px;" alt="Yaidea"/>
@@ -297,14 +307,14 @@ This project exists thanks to all the people who contribute。
    <td align="center">
   <a href="https://github.com/wujunze"><img src="https://avatars1.githubusercontent.com/u/12997869?s=400&u=455e0f09c1e11fc0df7594d7dfbba88be92c4244&v=4" width="100px;" alt="wujunze"/>
   <br></br><sub><b>wujunze</b></sub>
+  
+ </td></tr></table>
  
-   <td align="center">
+  <table><tr>
+ 
+  <td align="center">
   <a href="https://github.com/greatpie"><img src="https://avatars2.githubusercontent.com/u/8511143?s=400&u=813b0bbae8b04034e37b8d45298c5e004de515bf&v=4" width="100px;" alt="greatpie"/>
   <br></br><sub><b>greatpie</b></sub>
- 
-</td></tr></table>
-
- <table><tr>
  
    <td align="center">
   <a href="https://github.com/snakejordan"><img src="https://avatars0.githubusercontent.com/u/3376284?s=400&v=4" width="100px" alt="snakejordan"/>
@@ -322,6 +332,11 @@ This project exists thanks to all the people who contribute。
   <a href="https://github.com/watership"><img src="https://avatars0.githubusercontent.com/u/2470422?s=400&u=b682f8bbbe6931a9e109bbe3f63c6f87fbed7d60&v=4" width="100px" alt="watership"/>
   <br></br><sub><b>watership</b></sub>
  
+  </td></tr></table>
+  
+  
+  <table><tr>
+ 
    <td align="center">
   <a href="https://github.com/Artemis-13"><img src="https://avatars2.githubusercontent.com/u/61645537?s=400&u=cbbb168e60b1d1ace572cd4bcf9712f054a1497c&v=4" width="100px" alt="Artemis-13"/>
   <br></br><sub><b>Artemis-13</b></sub>
@@ -337,14 +352,14 @@ This project exists thanks to all the people who contribute。
    <td align="center">
   <a href="https://github.com/coolmilkTea"><img src="https://avatars2.githubusercontent.com/u/48348904?s=400&u=4fd777edf333f39a6a3fe7917a159aad6c98b200&v=4" width="100px;" alt="coolmilkTea"/>
   <br></br><sub><b>coolmilkTea</b></sub>
-  
- </td></tr></table>
- 
-  <table><tr>
  
    <td align="center">
   <a href="https://github.com/AhQi7"><img src="https://avatars0.githubusercontent.com/u/46393078?s=400&v=4" width="100px;" alt="AhQi7"/>
   <br></br><sub><b>AhQi7</b></sub>
+ 
+  </td></tr></table>
+
+  <table><tr>
  
    <td align="center">
   <a href="https://github.com/caoxinjava001"><img src="https://avatars3.githubusercontent.com/u/4892867?s=400&u=0ad501d30873d872971e8c4cd941f6e40c5f02ea&v=4" width="100px;" alt="caoxinjava001"/>
@@ -358,6 +373,7 @@ This project exists thanks to all the people who contribute。
   <a href="https://github.com/orangeclassmate"><img src="https://avatars0.githubusercontent.com/u/34773757?s=400&u=9c4b3457256daded0326ba87b3ef129b0f69ee17&v=4" width="100px;" alt="orangeclassmate"/>
   <br></br><sub><b>orangeclassmate</b></sub>
  
+ 
    <td align="center">
   <a href="https://github.com/yorfir"><img src="https://avatars1.githubusercontent.com/u/7101507?s=400&u=11080c0830a870dcab91948149445565bc187da9&v=4" width="100px;" alt="yorfir"/>
   <br></br><sub><b>yorfir</b></sub>
@@ -365,6 +381,9 @@ This project exists thanks to all the people who contribute。
    <td align="center">
   <a href="https://github.com/isyntop"><img src="https://avatars1.githubusercontent.com/u/20900723?s=400&u=a1e6d392f55a5d5b180535277b1020bf17f7e217&v=4" width="100px;" alt="isyntop"/>
   <br></br><sub><b>isyntop</b></sub>
+ 
+  </td></tr></table> 
+   <table><tr>
  
    <td align="center">
   <a href="https://github.com/baymax-c"><img src="https://avatars2.githubusercontent.com/u/62831888?s=400&v=4" width="100px;" alt="baymax-c"/>
@@ -374,22 +393,23 @@ This project exists thanks to all the people who contribute。
   <a href="https://github.com/cnlinjie"><img src="https://avatars1.githubusercontent.com/u/3601638?s=400&u=fa07b0ab31f248e87687ad587ba7af0f23f8ffc7&v=4" width="100px;" alt="cnlinjie"/>
   <br></br><sub><b>cnlinjie</b></sub>
  
-  </td></tr></table>
-  
-  
-  <table><tr>
- 
    <td align="center">
   <a href="https://github.com/befuture"><img src="https://avatars2.githubusercontent.com/u/2246922?s=400&v=4" width="100px;" alt="befuture"/>
   <br></br><sub><b>befuture</b></sub>
  
-   <td align="center">
+  <td align="center">
   <a href="https://github.com/crbee"><img src="https://avatars2.githubusercontent.com/u/18109072?s=400&v=4" width="100px;" alt="crbee"/>
   <br></br><sub><b>crbee</b></sub>
  
    <td align="center">
   <a href="https://github.com/elrond-g"><img src="https://avatars2.githubusercontent.com/u/6926269?s=400&v=4" width="100px;" alt="elrond-g"/>
   <br></br><sub><b>elrond-g</b></sub>
+ 
+  </td></tr></table>
+
+
+  </td></tr></table> 
+   <table><tr>
  
    <td align="center">
   <a href="https://github.com/feicun2"><img src="https://avatars1.githubusercontent.com/u/18099292?s=400&v=4" width="100px;" alt="feicun2"/>
@@ -412,9 +432,10 @@ This project exists thanks to all the people who contribute。
   <br></br><sub><b>mritd</b></sub>
  
   </td></tr></table>
-
-
-  <table><tr>
+  
+  
+   </td></tr></table> 
+   <table><tr>
  
    <td align="center">
   <a href="https://github.com/hsing0527"><img src="https://avatars0.githubusercontent.com/u/57891696?s=400&u=994b194f51551cfa5f4cd4282462ec8d6c258455&v=4" width="100px;" alt="hsing0527"/>
@@ -428,11 +449,25 @@ This project exists thanks to all the people who contribute。
   <a href="https://github.com/aleecy"><img src="https://avatars0.githubusercontent.com/u/15871392?s=400&u=14ae820927d89cc2158501f8e37ec8b6c11abbd6&v=4" width="100px;" alt="aleecy"/>
   <br></br><sub><b>aleecy</b></sub>
  
+ 
    <td align="center">
   <a href="https://github.com/eyaeya"><img src="https://avatars2.githubusercontent.com/u/5821137?s=400&u=800fceb32aa9e06c3c5a9ab4ae03c8134fe17ce9&v=4" width="100px;" alt="eyaeya"/>
   <br></br><sub><b>eyaeya</b></sub>
  
+   <td align="center">
+  <a href="https://github.com/qierkang"><img src="https://avatars1.githubusercontent.com/u/17940151?s=400&u=ccdfdd11ec900348811f8eefed8f16d80a801daa&v=4" width="100px;" alt="qierkang"/>
+  <br></br><sub><b>qierkang</b></sub>
+ 
   </td></tr></table>
+  
+   </td></tr></table> 
+   <table><tr>
+ 
+   <td align="center">
+  <a href="https://github.com/MrPlusZhao"><img src="https://avatars0.githubusercontent.com/u/12454104?s=400&u=5ee35a4f3fdc25ada91a0921220171cb40fe458a&v=4" width="100px;" alt="MrPlusZhao"/>
+  <br></br><sub><b>MrPlusZhao</b></sub>
+ 
+   </td></tr></table>
 
 ## Backers
 
