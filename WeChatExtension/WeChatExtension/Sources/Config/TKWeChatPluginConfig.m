@@ -9,6 +9,7 @@
 #import "TKWeChatPluginConfig.h"
 #import "TKRemoteControlModel.h"
 #import "YMAutoReplyModel.h"
+#import "VAutoForwardingModel.h"
 #import "TKIgnoreSessonModel.h"
 #import "WeChatPlugin.h"
 #import "YMIMContactsManager.h"
@@ -40,6 +41,8 @@ static NSString * const kFirstLoadMode = @"kThemeLoadMode.";
 @dynamic preventAsyncRevokeSignal;
 @dynamic preventAsyncRevokeChatRoom;
 @dynamic autoReplyEnable;
+@dynamic autoForwardingEnable;
+@dynamic autoForwardingAllFriend;
 @dynamic autoAuthEnable;
 @dynamic launchFromNew;
 @dynamic quitMonitorEnable;
@@ -55,7 +58,6 @@ static NSString * const kFirstLoadMode = @"kThemeLoadMode.";
 @dynamic darkMode;
 @dynamic blackMode;
 @dynamic pinkMode;
-@dynamic groupMultiColorMode;
 @dynamic isThemeLoaded;
 
 + (instancetype)sharedConfig
@@ -106,6 +108,23 @@ static NSString * const kFirstLoadMode = @"kThemeLoadMode.";
         [needSaveModels addObject:model.dictionary];
     }];
     [needSaveModels writeToFile:self.autoReplyPlistFilePath atomically:YES];
+}
+
+#pragma mark - 自动转发
+- (NSArray *)VAutoForwardingModel
+{
+    NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"AutoForwarding.data"];
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+}
+
+- (void)saveAutoForwardingModel:(VAutoForwardingModel *)model
+{
+    if (!model) {
+        return;
+    }
+    NSString *temp = NSTemporaryDirectory();
+    NSString *filePath = [temp stringByAppendingPathComponent:@"AutoForwarding.data"];
+    [NSKeyedArchiver archiveRootObject:model toFile:filePath];
 }
 
 #pragma mark - 远程控制
