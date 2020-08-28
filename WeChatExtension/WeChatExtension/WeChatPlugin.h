@@ -2,8 +2,8 @@
 //  WeChatExtension.h
 //  WeChatExtension
 //
-//  Created by WeChatExtension on 2017/4/19.
-//  Copyright © 2017年 WeChatExtension. All rights reserved.
+//  Created by WeChatExtension on 2019/4/19.
+//  Copyright © 2019年 WeChatExtension. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -161,14 +161,11 @@ FOUNDATION_EXPORT const unsigned char WeChatPluginVersionString[];
 @interface MMChatsViewController : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
 @property(nonatomic) __weak NSTableView *tableView;
 @property(retain, nonatomic) MMBrandChatsViewController *brandChatsViewController;
+@property(retain, nonatomic) NSString *selectedUserName; // @synthesize selectedUserName=_selectedUserName;
 @end
 
 @interface MMContactsViewController : NSViewController
 @property(nonatomic) __weak NSTableView *tableView;
-@end
-
-@interface MMComposeInputViewController : NSViewController
-- (void)viewDidLoad;
 @end
 
 @interface MMComposeTextView : NSTextView
@@ -355,6 +352,7 @@ FOUNDATION_EXPORT const unsigned char WeChatPluginVersionString[];
 
 @interface MMSessionMgr : NSObject
 @property(retain, nonatomic) NSMutableArray *m_arrSession;
+@property(retain) NSString *m_currentSessionName; // @synthesize m_currentSessionName=_m_currentSessionName;
 - (id)getAllSessions;
 - (id)GetAllSessions;
 - (id)GetSessionAtIndex:(unsigned long long)arg1;//2.3.24废弃
@@ -896,6 +894,7 @@ forHTTPHeaderField:(NSString *)field;
 @property(retain, nonatomic) MMView *placeHolderView; // @synthesize placeHolderView=_placeHolderView;
 @property(retain, nonatomic) NSView *detailContainerView; // @synthesize detailContainerView=_detailContainerView;
 @property(nonatomic) __weak NSScrollView *scrollViewContainer; // @synthesize scrollViewContainer=_scrollViewContainer;
+@property(retain, nonatomic) NSButton *sendMsgButton; // @synthesize sendMsgButton=_sendMsgButton;
 @end
 
 @interface MMFavoriteCollectionView : NSCollectionView
@@ -959,4 +958,43 @@ forHTTPHeaderField:(NSString *)field;
 - (void)onServiceInit;
 - (void)dealloc;
 - (id)init;
+@end
+
+@interface SVGButton : NSButton
+@property(nonatomic) struct CGSize imageSize; // @synthesize imageSize=_imageSize;
+@property(retain, nonatomic) NSColor *alternateColor; // @synthesize alternateColor=_alternateColor;
+@property(retain, nonatomic) NSColor *normalColor; // @synthesize normalColor=_normalColor;
+@property(retain, nonatomic) NSString *imageName; // @synthesize imageName=_imageName;
+- (void)setup;
+- (void)dealloc;
+- (id)initWithCoder:(id)arg1;
+- (id)initWithFrame:(struct CGRect)arg1;
+- (id)init;
+@end
+
+@interface MMComposeInputViewController : NSViewController
+- (void)viewDidLoad;
+@property(nonatomic) __weak SVGButton *openBrandMenuButton; // @synthesize openBrandMenuButton=_openBrandMenuButton;
+@property(nonatomic) __weak SVGButton *closeBrandMenuButton; // @synthesize openBrandMenuButton=_openBrandMenuButton;
+@property(nonatomic) __weak SVGButton *chatManagerButton; // @synthesize chatManagerButton=_chatManagerButton;
+@property(nonatomic) __weak SVGButton *voiceButton; // @synthesize voiceButton=_voiceButton;
+@property(nonatomic) __weak SVGButton *videoButton; // @synthesize videoButton=_videoButton;
+@property(nonatomic) __weak SVGButton *screenShotButton; // @synthesize screenShotButton=_screenShotButton;
+@property(nonatomic) __weak SVGButton *attachmentButton; // @synthesize attachmentButton=_attachmentButton;
+@property(nonatomic) __weak SVGButton *stickerButton; // @synthesize stickerButton=_stickerButton;
+@property(nonatomic) __weak SVGButton *multiTalkButton; // @synthesize stickerButton=_stickerButton;
+@end
+
+@interface MMFavSidebarHeaderRowView : NSTableRowView
+@property(retain, nonatomic) MMSidebarColorIconView *arrowIconView; // @synthesize arrowIconView=_arrowIconView;
+@property(retain, nonatomic) MMSidebarColorIconView *iconView; // @synthesize iconView=_iconView;
+@property(retain, nonatomic) MMSidebarLabelTextField *titleLabel; // @synthesize titleLabel=_titleLabel;
+@property(retain, nonatomic) NSImage *arrowIcon; // @synthesize arrowIcon=_arrowIcon;
+@property(retain, nonatomic) NSImage *icon; // @synthesize icon=_icon;
+@end
+
+@interface MMFavSidebarRowView : NSTableRowView
+@property(retain, nonatomic) MMView *containerView; // @synthesize containerView=_containerView;
+@property(retain, nonatomic) MMImageView *avatarView; // @synthesize avatarView=_avatarView;
+@property(retain, nonatomic) MMSidebarColorIconView *iconView; // @synthesize iconView=_iconView;
 @end

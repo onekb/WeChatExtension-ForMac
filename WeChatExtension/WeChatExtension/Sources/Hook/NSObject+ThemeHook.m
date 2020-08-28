@@ -14,6 +14,7 @@
 #import "YMThemeManager.h"
 #import "ANYMethodLog.h"
 #import "YMFuzzyManager.h"
+#import "NSWindow+fuzzy.h"
 
 @interface NSCellAuxiliary : NSObject
 
@@ -69,8 +70,60 @@
          hookMethod(objc_getClass("MMSearchTableCellView"), NSSelectorFromString(@"prepareForReuse"), [self class], @selector(hook_chatLogPrepareForReuse));
         //fuzzy
         hookMethod(objc_getClass("MMContactsDetailViewController"), NSSelectorFromString(@"viewWillAppear"), [self class], @selector(hook_contactsDetailViewWillAppear));
-         hookMethod(objc_getClass("MMFavoriteDetailViewContoller"), NSSelectorFromString(@"viewWillAppear"), [self class], @selector(hook_favoriteDetailViewWillAppear));
+        hookMethod(objc_getClass("MMFavoriteDetailViewContoller"), NSSelectorFromString(@"viewWillAppear"), [self class], @selector(hook_favoriteDetailViewWillAppear));
+        hookMethod(objc_getClass("MMSidebarContactRowView"), NSSelectorFromString(@"_updateSelectionAppearance:"), [self class], @selector(hook_updateSelectionAppearance:));
+        hookMethod(objc_getClass("MMFavSidebarHeaderRowView"), NSSelectorFromString(@"initWithFrame:"), [self class], @selector(hook_sideBarHeaderInitWithFrame:));
+        hookMethod(objc_getClass("MMFavSidebarRowView"), NSSelectorFromString(@"initWithFrame:"), [self class], @selector(hook_sideBarRowInitWithFrame:));
+        hookMethod(objc_getClass("MMContactsDetailViewController"), @selector(sendMsgButton), [self class], @selector(hook_sendMsgButton));
     }
+}
+
+- (id)hook_sendMsgButton
+{
+    NSButton *btn = [self hook_sendMsgButton];
+    if ([TKWeChatPluginConfig sharedConfig].usingTheme) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            btn.layer.cornerRadius = 5;
+            btn.layer.borderColor = TK_RGBA(6, 193, 96, 0.2).CGColor;
+            btn.layer.borderWidth = 2;
+        });
+    }
+    return btn;
+}
+
+- (id)hook_sideBarRowInitWithFrame:(struct CGRect)arg1
+{
+    MMFavSidebarRowView *rowView = [self hook_sideBarRowInitWithFrame:arg1];
+    if (LargerOrEqualVersion(@"2.4.2")) {
+        if ([TKWeChatPluginConfig sharedConfig].usingDarkTheme) {
+            NSColor *normalColor = kDarkModeTextColor;
+            rowView.iconView.normalColor = normalColor;
+        }
+    }
+    return rowView;
+}
+
+- (id)hook_sideBarHeaderInitWithFrame:(struct CGRect)arg1
+{
+    MMFavSidebarHeaderRowView *rowView = [self hook_sideBarHeaderInitWithFrame:arg1];
+    if (LargerOrEqualVersion(@"2.4.2")) {
+        if ([TKWeChatPluginConfig sharedConfig].usingDarkTheme) {
+            NSColor *normalColor = kDarkModeTextColor;
+            rowView.iconView.normalColor = normalColor;
+            rowView.arrowIconView.normalColor = normalColor;
+        }
+    }
+    return rowView;
+}
+
+#pragma mark - 联系人
+- (void)hook_updateSelectionAppearance:(id)arg1
+{
+    NSNotification *ntf = (NSNotification *)arg1;
+    if ([ntf.name containsString:@"NSWindow"]) {
+        return;
+    }
+    [self hook_updateSelectionAppearance:arg1];
 }
 
 #pragma mark - 收藏
@@ -441,6 +494,14 @@
     if ([TKWeChatPluginConfig sharedConfig].usingDarkTheme) {
         [[YMThemeManager shareInstance] changeTheme:cell color:[TKWeChatPluginConfig sharedConfig].mainChatCellBackgroundColor];
         cell.muteIndicator.normalColor = [NSColor redColor];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([cell.sessionInfo.m_nsUserName isEqualToString:[YMThemeManager shareInstance].currentSessionName]) {
+                cell.layer.backgroundColor =  TKWeChatPluginConfig.sharedConfig.fuzzyMode ? kRGBColor(26,28,32, 0.5).CGColor : ((TKWeChatPluginConfig.sharedConfig.blackMode ? kRGBColor(128,128,128, 0.5) : kRGBColor(147, 148, 248, 0.5)).CGColor);
+                [cell setNeedsDisplay:YES];
+                [YMThemeManager shareInstance].preChatCellView = cell;
+            }
+        });
     }
 }
 
@@ -449,16 +510,9 @@
     [self hook_mouseDown:arg1];
     
     if ([TKWeChatPluginConfig sharedConfig].usingDarkTheme) {
-
         MMChatsTableCellView *cell = (MMChatsTableCellView *)self;
-
-        NSColor *original = [NSColor colorWithCGColor:cell.layer.backgroundColor];
-        cell.layer.backgroundColor =  TKWeChatPluginConfig.sharedConfig.fuzzyMode ? kRGBColor(26,28,32, 0.5).CGColor : ((TKWeChatPluginConfig.sharedConfig.blackMode ? kRGBColor(128,128,128, 0.5) : kRGBColor(147, 148, 248, 0.5)).CGColor);
-        [cell setNeedsDisplay:YES];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            cell.layer.backgroundColor = original.CGColor;
-            [cell setNeedsDisplay:YES];
-        });
+        [YMThemeManager shareInstance].currentSessionName = cell.sessionInfo.m_nsUserName;
+        [YMThemeManager shareInstance].currentChatCellView = cell;
     }
 }
 
@@ -536,26 +590,18 @@
     [self hook_ComposeInputViewControllerViewDidLoad];
     MMComposeInputViewController *controller = (MMComposeInputViewController *)self;
     [[YMThemeManager shareInstance] changeTheme:controller.view];
-    
-    if ([TKWeChatPluginConfig sharedConfig].usingDarkTheme) {
-        for (NSView *sub in controller.view.subviews) {
-            if ([sub isKindOfClass:objc_getClass("SVGButton")]) {
-                if (@available(macOS 10.15, *)) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        NSButton *button = (NSButton *)sub;
-                        NSImage *tempImage = button.image;
-                        button.image = button.alternateImage;
-                        button.alternateImage = tempImage;
-                        button.alphaValue = 1.0;
-                    });
-                } else if (@available(macOS 10.14, *)) {
-                    NSButton *button = (NSButton *)sub;
-                    NSImage *tempImage = button.image;
-                    button.image = button.alternateImage;
-                    button.alternateImage = tempImage;
-                    button.alphaValue = 1.0;
-                }
-            }
+    if (LargerOrEqualVersion(@"2.4.2")) {
+        if ([TKWeChatPluginConfig sharedConfig].usingDarkTheme) {
+            NSColor *normalColor = kDarkModeTextColor;
+            controller.openBrandMenuButton.normalColor = normalColor;
+            controller.closeBrandMenuButton.normalColor = normalColor;
+            controller.chatManagerButton.normalColor = normalColor;
+            controller.voiceButton.normalColor = normalColor;
+            controller.videoButton.normalColor = normalColor;
+            controller.screenShotButton.normalColor = normalColor;
+            controller.attachmentButton.normalColor = normalColor;
+            controller.stickerButton.normalColor = normalColor;
+            controller.multiTalkButton.normalColor = normalColor;
         }
     }
 }
@@ -788,6 +834,14 @@
     
     if ([NSStringFromClass(self.class) containsString:@"FI_"]) {
         return;
+    }
+    
+    
+    if ([self isKindOfClass:objc_getClass("MMContactsDetailViewController")]) {
+        MMContactsDetailViewController *contactsVC = (MMContactsDetailViewController *)self;
+        if (!contactsVC.currContactData) {
+            contactsVC.contactNameLabel.stringValue = @"";
+        }
     }
     
     NSViewController *viewController = (NSViewController *)self;
