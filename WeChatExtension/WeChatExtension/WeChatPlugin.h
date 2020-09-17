@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <QuartzCore/QuartzCore.h>
 
 FOUNDATION_EXPORT double WeChatPluginVersionNumber;
 FOUNDATION_EXPORT const unsigned char WeChatPluginVersionString[];
@@ -48,7 +49,7 @@ FOUNDATION_EXPORT const unsigned char WeChatPluginVersionString[];
 - (void)originalImageWithMessage:(id)arg1 completion:(id)arg2;
 @end
 
-@interface MMBrandChatsViewController : NSObject
+@interface MMBrandChatsViewController : NSViewController
 - (void)startChatWithContact:(id)arg1;
 @end
 
@@ -162,6 +163,7 @@ FOUNDATION_EXPORT const unsigned char WeChatPluginVersionString[];
 @property(nonatomic) __weak NSTableView *tableView;
 @property(retain, nonatomic) MMBrandChatsViewController *brandChatsViewController;
 @property(retain, nonatomic) NSString *selectedUserName; // @synthesize selectedUserName=_selectedUserName;
+- (void)reloadTableView;
 @end
 
 @interface MMContactsViewController : NSViewController
@@ -722,6 +724,11 @@ forHTTPHeaderField:(NSString *)field;
 @property(retain, nonatomic) NSColor *normalColor; // @synthesize normalColor=_normalColor;
 @end
 
+@interface MMBadgeOverlayView : NSView
+@property(nonatomic) unsigned long long number; // @synthesize number=_number;
+@property(nonatomic) int style; // @synthesize style=_style;
+@end
+
 @interface MMChatsTableCellView : NSTableCellView
 @property(nonatomic) __weak id <MMChatsTableCellViewDelegate> delegate;
 @property(retain, nonatomic) MMSessionInfo *sessionInfo;
@@ -738,7 +745,9 @@ forHTTPHeaderField:(NSString *)field;
 @property(nonatomic) BOOL shouldRemoveHighlight; // @synthesize shouldRemoveHighlight=_shouldRemoveHighlight;
 @property(retain, nonatomic) NSView *containerView; // @synthesize containerView=_containerView;
 @property(retain, nonatomic) MMSidebarColorIconView *muteIndicator; // @synthesize muteIndicator=_muteIndicator;
-
+@property(retain, nonatomic) CAShapeLayer * _Nullable shapeLayer; // @synthesize shapeLayer=_shapeLayer;
+@property(retain, nonatomic) NSView *avatar;
+@property(retain, nonatomic) MMBadgeOverlayView *badgeView; // @synthesize badgeView=_badgeView;
 @property(nonatomic) BOOL selected; // @synthesize selected=_selected;
 - (void)menuWillOpen:(id)arg1;
 - (void)contextMenuSticky:(id)arg1;
@@ -749,6 +758,12 @@ forHTTPHeaderField:(NSString *)field;
 
 - (void)drawSelectionBackground;
 - (void)updateSelectionBackground;
+- (BOOL)isWxWorkSession;
+- (BOOL)isMentionedUnread;
+- (BOOL)isMsgStatusFailed;
+- (BOOL)isMuted;
+- (BOOL)isSticky;
+- (BOOL)isMarkUnRead;
 @end
 
 @interface CmdItem : NSObject
@@ -806,6 +821,8 @@ forHTTPHeaderField:(NSString *)field;
 @end
 
 @interface MMSearchChatLogTableCellView : NSTableCellView
+@property(retain, nonatomic) MMTextField *descriptionLabel; // @synthesize descriptionLabel=_descriptionLabel;
+@property(retain, nonatomic) MMTextField *titleLabel; // @synthesize titleLabel=_titleLabel;
 @property (nonatomic, strong) NSColor *backgroundColor;
 - (void)setSelected:(BOOL)arg1;
 @end
@@ -997,4 +1014,21 @@ forHTTPHeaderField:(NSString *)field;
 @property(retain, nonatomic) MMView *containerView; // @synthesize containerView=_containerView;
 @property(retain, nonatomic) MMImageView *avatarView; // @synthesize avatarView=_avatarView;
 @property(retain, nonatomic) MMSidebarColorIconView *iconView; // @synthesize iconView=_iconView;
+@end
+
+@interface RFOverlayScrollView : NSScrollView
+
+@end
+
+@interface MMContactsMgrRecentRowView : NSView
+@property(retain, nonatomic) NSTextField *nameTextField; // @synthesize nameTextField=_nameTextField;
+@end
+
+@interface MMContactsListViewController : NSViewController
+@property(retain, nonatomic) CAShapeLayer *shapeLayer; // @synthesize shapeLayer=_shapeLayer;
+@end
+
+@interface MMContactsColumn3CellView : NSView
+@property(retain, nonatomic) NSTextField *titleField; // @synthesize titleField=_titleField;
+- (void)updateUIWithContact:(id)arg1;
 @end

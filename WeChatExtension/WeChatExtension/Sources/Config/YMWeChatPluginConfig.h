@@ -1,5 +1,5 @@
 //
-//  TKWeChatPluginConfig.h
+//  YMWeChatPluginConfig.h
 //  WeChatExtension
 //
 //  Created by WeChatExtension on 2019/4/19.
@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 #import "GVUserDefaults.h"
 #import <AppKit/AppKit.h>
+#import "WeChatPlugin.h"
 
 typedef NS_ENUM(NSInteger, PluginLanguageType) {
     PluginLanguageTypeZH,
@@ -19,7 +20,7 @@ typedef NS_ENUM(NSInteger, PluginLanguageType) {
 @class YMAIAutoModel;
 @class VAutoForwardingModel;
 
-@interface TKWeChatPluginConfig : GVUserDefaults
+@interface YMWeChatPluginConfig : GVUserDefaults
 
 @property (nonatomic) BOOL preventRevokeEnable;                 /**<    是否开启防撤回    */
 @property (nonatomic) BOOL preventSelfRevokeEnable;             /**<    是否防撤回自己    */
@@ -58,6 +59,7 @@ typedef NS_ENUM(NSInteger, PluginLanguageType) {
 @property (nonatomic, strong) VAutoForwardingModel *VAutoForwardingModel;      /**<    自动转发的数组    */
 @property (nonatomic, strong) YMAIAutoModel *AIReplyModel;
 @property (nonatomic) PluginLanguageType languageType;
+@property (nonatomic, weak) MMBrandChatsViewController *brandChatsViewController;
 
 
 

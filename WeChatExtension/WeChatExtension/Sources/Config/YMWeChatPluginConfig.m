@@ -1,12 +1,12 @@
 //
-//  TKWeChatPluginConfig.m
+//  YMWeChatPluginConfig.m
 //  WeChatExtension
 //
 //  Created by WeChatExtension on 2019/4/19.
 //  Copyright © 2019年 WeChatExtension. All rights reserved.
 //
 
-#import "TKWeChatPluginConfig.h"
+#import "YMWeChatPluginConfig.h"
 #import "TKRemoteControlModel.h"
 #import "YMAutoReplyModel.h"
 #import "VAutoForwardingModel.h"
@@ -17,12 +17,7 @@
 static NSString * const kTKWeChatResourcesPath = @"/Applications/WeChat.app/Contents/MacOS/WeChatExtension.framework/Resources/";
 static NSString * const kTKWeChatRemotePlistPath = @"https://raw.githubusercontent.com/MustangYM/WeChatExtension-ForMac/master/WeChatExtension/WeChatExtension/Base.lproj/Info.plist";
 
-static NSString * const kDarkMode = @"kDarkMode";
-static NSString * const kPinkMode = @"kPinkMode";
-static NSString * const kGroupMultiColorMode = @"kGroupMultiColorMode";
-static NSString * const kFirstLoadMode = @"kThemeLoadMode.";
-
-@interface TKWeChatPluginConfig ()
+@interface YMWeChatPluginConfig ()
 
 @property (nonatomic, copy) NSString *remoteControlPlistFilePath;
 @property (nonatomic, copy) NSString *autoReplyPlistFilePath;
@@ -33,7 +28,7 @@ static NSString * const kFirstLoadMode = @"kThemeLoadMode.";
 
 @end
 
-@implementation TKWeChatPluginConfig
+@implementation YMWeChatPluginConfig
 
 @dynamic preventRevokeEnable;
 @dynamic preventSelfRevokeEnable;
@@ -63,10 +58,10 @@ static NSString * const kFirstLoadMode = @"kThemeLoadMode.";
 
 + (instancetype)sharedConfig
 {
-    static TKWeChatPluginConfig *config = nil;
+    static YMWeChatPluginConfig *config = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        config = [TKWeChatPluginConfig standardUserDefaults];
+        config = [YMWeChatPluginConfig standardUserDefaults];
     });
     return config;
 }
@@ -359,7 +354,7 @@ static NSString * const kFirstLoadMode = @"kThemeLoadMode.";
 
 - (NSString *)languageSetting:(NSString *)chinese english:(NSString *)english
 {
-    if ([TKWeChatPluginConfig sharedConfig].languageType == PluginLanguageTypeZH) {
+    if ([YMWeChatPluginConfig sharedConfig].languageType == PluginLanguageTypeZH) {
         return chinese;
     }
     return english;

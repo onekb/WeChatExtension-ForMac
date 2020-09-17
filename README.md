@@ -28,26 +28,32 @@
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/face1.png" width="1000px"/>
 </p>
 
-![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.6.5-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.2-blue.svg)
+![platform](https://img.shields.io/badge/platform-macos-lightgrey.svg)  [![release](https://img.shields.io/badge/release-v2.6.7-brightgreen.svg)](https://github.com/MustangYM/WeChatExtension-ForMac/releases)  ![support](https://img.shields.io/badge/support-wechat%202.4.2-blue.svg)
 
 - 支持[企业微信](https://github.com/MustangYM/WeChatICU-ForMac)，由此进。
 - 如果你希望更简约，这里提供了[简版小助手](https://github.com/MustangYM/WeChatSeptet-ForMac)，安装方式与WeChatExtension的手动安装方式一样。
 
-## 声明
+## Who are not capable to read Chinese☹️
+I'm sorry for GitHub's trending rules. Most users of this project are Chinese, so there is `no English wiki`.
 
+## 声明
+- WeChatExtension完全`免费`，近期发现不少三方平台甚至某宝商家`出售`此软件，切勿`上当受骗`。
 - 适用于Mac版的WeChat拓展功能。1.7.5代码来自于[WeChatPlugin](https://github.com/TKkk-iOSer/WeChatPlugin-MacOS)，对[TK](https://github.com/TKkk-iOSer)在此表示感谢！
 - Issues注意事项[Wiki](https://github.com/MustangYM/WeChatExtension-ForMac/wiki/Issues%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)。
 - 到目前为止，并未发现因使用本插件会导致封号。
 
 ## 最新支持版本
--  mac版微信2.4.2
--  皮肤最低支持macOS 10.14
--  微信2.4.0版本以上才支持小程序 [去下载](https://developers.weixin.qq.com/community/develop/doc/0000a0544fcfc013c8b9d164a5b801)
+- [下载最新版微信](https://dldir1.qq.com/weixin/mac/WeChatMac_Beta.dmg)
+- 皮肤最低支持macOS 10.14
+
+## 小助手相关介绍
+- [Toptips视频介绍](https://toptips.vip/a/565)(基于2.5版本的小助手介绍，现在的小助手更完善)
 
 ## 迷离/黑夜/深邃/少女 模式
 - 众多软件都适配了黑夜模式，等了这么久Mac微信官方还是没做适配，所以做了这个玩票功能。
-- 少量细节没有做适配，不影响正常使用，如果你是强迫症加完美主义，`主题模式-黑夜模式-再次点击`可以`关掉`这个功能。
-<del>- 在黑夜模式中你可以打开`群成员彩色`，群聊中每个发言人的昵称颜色都会有所区别。<del>
+- 少量细节没有做适配，`主题模式-黑夜模式-再次点击`可以`关掉`这个功能。
+- 群聊中每个发言人的昵称颜色都会有所区别。
+- 在皮肤模式下，未读消息头像会轻微可爱`摇动`，未读数超过`99条`的会话有`彩蛋`。
 
 - 迷离模式👇 `It‘s perfect！ I love it！`
 <p align="center">
@@ -128,7 +134,7 @@
 - 依次点击 `小助手` -> `开启Alfred功能`
 - 打开你的Alfred搜索框，输入 `wx `(wx后面接一个空格)，即可开启Alfred控制微信之旅
 ## 退群监控
-<del>- 退群提醒，同一人在同一群里的退出提醒7天内不再重复提示。<del>
+- 退群提醒，同一人在同一群里的退出提醒7天内不再重复提示。
 <p align="center">
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/WX20191227-200134%402x.png" width="800px"/>
 </p>
@@ -142,12 +148,12 @@
 - 所以`微信多开`与`允许打开小程序`是互斥的，点击`微信多开`可关闭`允许打开小程序`，反之也是如此。
 
 ## 怎么安装?
-### 1.普通安装(clone最新版本并安装)
+### 安装方式一：普通安装(clone最新版本并安装)
 ```
 sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/MustangYM/WeChatExtension-ForMac && cd WeChatExtension-ForMac/WeChatExtension/Rely && ./Install.sh
 ```
 
-### 2.懒癌版安装
+### 安装方式二：懒癌版安装
 
 <p align="left">
 <img src="https://avatars1.githubusercontent.com/u/5035625?s=400&v=4" width="100px"/>
@@ -168,7 +174,7 @@ Oh My WeChat一键命令
 安装完成后会自动安装微信插件，可以访问 [Oh My WeChat 的项目主页](https://github.com/lmk123/oh-my-wechat#oh-my-wechat)查看更多用法。
 
 
-### 3.手动安装
+### 安装方式三：手动安装
 
 - 3.1.确保你的Mac上已经安装了微信App。
 
@@ -195,12 +201,17 @@ Oh My WeChat一键命令
 - 3.6.重启微信，安装完成。
 
 ## 怎么卸载?
-- 自动卸载
+### 卸载方式一：自动卸载（推荐）
+```
+bash <(curl -sL https://git.io/JUO6r)
+```
+
+### 卸载方式二：自动卸载
 ```
 sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/MustangYM/WeChatExtension-ForMac && cd WeChatExtension-ForMac/WeChatExtension/Rely && ./Uninstall.sh
 ```
 
-- 手动卸载
+### 卸载方式三：手动卸载
   -  将Uninstall.sh拖到终端工具中，回车执行即可。
 <p align="center">
 <img src="https://github.com/MustangYM/WeChatExtensionSources/blob/master/Pictures/WX20190625-102808%402x.png" width="800px"/>
@@ -210,6 +221,7 @@ sudo rm -r -f WeChatExtension-ForMac && git clone --depth=1 https://github.com/M
 
 ## 更新日志
 ```
+2020-09-16 适配微信2.4.2(15650)Beta 148，修复微信会话列表为空，新增通讯录管理皮肤适配，小程序成为独立模块，多开与小程序终于完美兼容，喜极而泣！
 2020-08-28 重构退群监控，会话列表选中高亮，修复部分低版本微信Crash。
 2020-08-13 聊天输入框/表情选择/收藏界面图标优化，修复联系人列表/详情页面若干BUG。
 2020-07-27 修复免认证登录后, 主页面一片空白。修复部分机器会话标题显示不全。适配10.13低版本系统聊天框底部图标不显示。
@@ -491,6 +503,14 @@ This project exists thanks to all the people who contribute。
    <td align="center">
   <a href="https://github.com/onekb"><img src="https://avatars2.githubusercontent.com/u/16450084?s=400&u=0c1b4e4a48e29316be699adb10c2a5c294dccd76&v=4" width="100px;" alt="onekb"/>
   <br></br><sub><b>onekb</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/pictureye"><img src="https://avatars1.githubusercontent.com/u/13998802?s=400&u=436fbdc6406b51ab87f4f6738b68b877755b0e7c&v=4" width="100px;" alt="pictureye"/>
+  <br></br><sub><b>pictureye</b></sub>
+ 
+   <td align="center">
+  <a href="https://github.com/uncleYiba"><img src="https://avatars1.githubusercontent.com/u/26616828?s=400&u=344142a2a1b519c4d52545f3e733d04fd88df069&v=4" width="100px;" alt="uncleYiba"/>
+  <br></br><sub><b>uncleYiba</b></sub>
  
    </td></tr></table>
 
