@@ -161,9 +161,7 @@
     
     
     self.arrowImageView = ({
-        NSBundle *bundle = [NSBundle bundleWithIdentifier:@"MustangYM.WeChatExtension"];
-           NSString *imgPath= [bundle pathForImageResource:@"arrow_forward.png"];
-           NSImage *arrowImage = [[NSImage alloc] initWithContentsOfFile:imgPath];
+        NSImage *arrowImage = kImageWithName(@"arrow_forward.png");
         NSImageView *imageView = nil;
         if (@available(macOS 10.12, *)) {
             imageView = [NSImageView imageViewWithImage:arrowImage];
@@ -226,7 +224,16 @@
     [picker setShowsOtherNonhumanChats:0];
     [picker setShowsOfficialAccounts:0];
     MMSessionPickerLogic *logic = [picker.listViewController valueForKey:@"m_logic"];
-    NSMutableOrderedSet *orderSet = [logic valueForKey:@"_selectedUserNamesSet"];
+    NSMutableOrderedSet *orderSet = nil;
+    if (LargerOrEqualLongVersion(@"2.4.2.148")) {
+        orderSet = [logic valueForKey:@"_groupsForSearch"];
+    } else {
+        orderSet = [logic valueForKey:@"_selectedUserNamesSet"];
+    }
+    
+    if (!orderSet) {
+        orderSet = [NSMutableOrderedSet new];
+    }
     [orderSet addObjectsFromArray:self.vmodel.forwardingFromContacts];
     [picker.choosenViewController setValue:self.vmodel.forwardingFromContacts forKey:@"selectedUserNames"];
     [picker beginSheetForWindow:self.window completionHandler:^(NSOrderedSet *a1) {
@@ -319,7 +326,17 @@
     [picker setShowsOtherNonhumanChats:0];
     [picker setShowsOfficialAccounts:0];
     MMSessionPickerLogic *logic = [picker.listViewController valueForKey:@"m_logic"];
-    NSMutableOrderedSet *orderSet = [logic valueForKey:@"_selectedUserNamesSet"];
+    NSMutableOrderedSet *orderSet = nil;
+    if (LargerOrEqualLongVersion(@"2.4.2.148")) {
+        orderSet = [logic valueForKey:@"_groupsForSearch"];
+    } else {
+       orderSet = [logic valueForKey:@"_selectedUserNamesSet"];
+    }
+    
+    if (!orderSet) {
+        orderSet = [NSMutableOrderedSet new];
+    }
+    
     [orderSet addObjectsFromArray:self.vmodel.forwardingToContacts];
     [picker.choosenViewController setValue:self.vmodel.forwardingToContacts forKey:@"selectedUserNames"];
     [picker beginSheetForWindow:self.window completionHandler:^(NSOrderedSet *a1) {
