@@ -16,6 +16,7 @@
 #import "YMFuzzyManager.h"
 #import "NSWindow+fuzzy.h"
 #import "NSViewLayoutTool.h"
+#import "TKIgnoreSessonModel.h"
 
 @interface NSCellAuxiliary : NSObject
 
@@ -82,7 +83,15 @@
         hookMethod(objc_getClass("MMMainViewController"), @selector(tabbarController:didSelectViewController:), [self class], @selector(hook_tabbarController:didSelectViewController:));
         hookMethod(objc_getClass("MMBrandChatsViewController"), @selector(viewDidLoad), [self class], @selector(hook_brandChatsViewDidLoad));
         hookMethod(objc_getClass("MMContactMgrButtonView"), @selector(setHighlighted:), [self class], @selector(hook_setHighlighted:));
+        if ([YMWeChatPluginConfig sharedConfig].fuzzyMode) {
+            hookMethod(objc_getClass("NSVisualEffectView"), @selector(material), [self class], @selector(hook_getMaterial));
+        }
     }
+}
+
+- (NSVisualEffectMaterial)hook_getMaterial
+{
+    return NSVisualEffectMaterialDark;
 }
 
 //适配通讯录管理
@@ -182,7 +191,7 @@
                 color = kRGBColor(206,207,211, 0.4);
             }
         } else {
-            color = [NSColor clearColor];
+           color = [NSColor clearColor];
         }
         cell.shapeLayer = [[objc_getClass("CAShapeLayer") alloc] init];
         CGPathRef path = CGPathCreateWithRect(cell.bounds, nil);
@@ -196,7 +205,6 @@
     } else {
         [self hook_drawSelectionBackground];
     }
-    
 }
 
 - (id)hook_sendMsgButton
@@ -985,6 +993,10 @@
     if ([controller isKindOfClass:[objc_getClass("MMContactsDetailViewController") class]]) {
         [[YMThemeManager shareInstance] changeTheme:view];
     }
+    
+    if ([controller isKindOfClass:[objc_getClass("MMSessionListView") class]]) {
+        [[YMThemeManager shareInstance] changeTheme:view];
+    }
 }
 
 #pragma mark - viewDidLoad
@@ -1048,6 +1060,10 @@
         return;
     }
     
+    if ([self isKindOfClass:objc_getClass("MMWebViewWindowController")]) {
+        return;
+    }
+    
     if ([self isKindOfClass:objc_getClass("MMGlobalChatManagerWindowController")]) {
         MMGlobalChatManagerWindowController *window = (MMGlobalChatManagerWindowController *)self;
         for (NSView *sub in window.window.contentView.subviews) {
@@ -1076,4 +1092,5 @@
     }
     return controller;
 }
+
 @end
