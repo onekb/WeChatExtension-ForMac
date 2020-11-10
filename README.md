@@ -20,6 +20,9 @@
 收到转账信息 <br>	
 转账描述：【￥0.01】恭喜发财<br><br>	
 > 红包通知弹窗。（即使群信息屏蔽，依然会弹出右上角通知）<br><br>
+> 显示视频号消息 如<br><br>	
+收到视频号消息 <br>	
+视频号名：生活不易……<br><br>	
 ### 最后感谢 [MustangYM](https://github.com/MustangYM) 和 [tk](https://github.com/TKkk-iOSer) 的无私付出	
 ### （完）下面内容为原项目信息	
 

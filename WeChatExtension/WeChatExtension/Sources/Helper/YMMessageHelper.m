@@ -62,6 +62,41 @@
         
         NSString *session = addMsg.fromUserName.string;
         
+        if(type.intValue == 51){// 显示视频号
+            NSString *nickname = @"";
+            NSString *desc = @"";
+            
+            NSDictionary *finderFeed = [appMsgDict valueForKey:@"finderFeed"];
+            
+            NSDictionary *nicknameDict = [finderFeed valueForKey:@"nickname"];
+            nickname = [nicknameDict valueForKey:@"text"];
+            
+            NSDictionary *descDict = [finderFeed valueForKey:@"desc"];
+            desc = [descDict valueForKey:@"text"];
+            
+            NSString *newMsgContent = @"";
+            
+            newMsgContent = [NSString stringWithFormat:@"收到视频号消息\n%@：%@\n",
+                           nickname,
+                           desc];
+            
+            
+            
+            MessageData *newMsgData = ({
+                      MessageData *msg = [[objc_getClass("MessageData") alloc] initWithMsgType:0x2710];
+                      [msg setFromUsrName:session];
+                      [msg setToUsrName:session];
+                      [msg setMsgStatus:4];
+                      [msg setMsgContent:newMsgContent];
+                      [msg setMsgCreateTime:[[NSDate date] timeIntervalSince1970]];
+                      msg;
+                  });
+                  
+            MessageService *msgService = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("MessageService")];
+            [msgService AddLocalMsg:session msgData:newMsgData];
+            
+        }
+        
         if (type.intValue == 33 || type.intValue == 36) {// 显示小程序信息
             NSDictionary *weappInfoDict = [appMsgDict valueForKey:@"weappinfo"];
             NSString *title = @"";
