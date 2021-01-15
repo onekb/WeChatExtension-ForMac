@@ -29,6 +29,7 @@
 #import "NSViewLayoutTool.h"
 #import "YMZGMPBanModel.h"
 #import "YMDFAFilter.h"
+#import "YMPrinter.h"
 
 @implementation NSObject (WeChatHook)
 
@@ -36,7 +37,10 @@
 {
     //微信撤回消息
     if (LargerOrEqualVersion(@"2.3.29")) {
-//         hookMethod(objc_getClass("AddMsgSyncCmdHandler"), @selector(handleSyncCmdId: withSyncCmdItems:onComplete:), [self class], @selector(hook_handleSyncCmdId: withSyncCmdItems:onComplete:));
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        hookMethod(objc_getClass("AddMsgSyncCmdHandler"), @selector(handleSyncCmdId: withSyncCmdItems:onComplete:), [self class], @selector(hook_handleSyncCmdId: withSyncCmdItems:onComplete:));
+#pragma clang diagnostic pop
         hookMethod(objc_getClass("MessageService"), @selector(FFToNameFavChatZZ:sessionMsgList:), [self class], @selector(hook_FFToNameFavChatZZ:sessionMsgList:));
       
     } else {
@@ -47,6 +51,9 @@
     //微信消息同步
     SEL syncBatchAddMsgsMethod = LargerOrEqualVersion(@"2.3.22") ? @selector(FFImgToOnFavInfoInfoVCZZ:isFirstSync:) : @selector(OnSyncBatchAddMsgs:isFirstSync:);
     hookMethod(objc_getClass("MessageService"), syncBatchAddMsgsMethod, [self class], @selector(hook_receivedMsg:isFirstSync:));
+    
+    hookMethod(objc_getClass("MMChatMessageDataSource"), @selector(onAddMsg:msgData:), [self class], @selector(hook_onAddMsg:msgData:));
+    
     //微信多开
     SEL hasWechatInstanceMethod = LargerOrEqualVersion(@"2.3.22") ? @selector(FFSvrChatInfoMsgWithImgZZ) : @selector(HasWechatInstance);
     hookClassMethod(objc_getClass("CUtility"), hasWechatInstanceMethod, [self class], @selector(hook_HasWechatInstance));
@@ -101,6 +108,10 @@
 
      hookMethod(objc_getClass("MMMainViewController"), @selector(onUpdateHandoffExpt:), [self class], @selector(hook_onUpdateHandoffExpt:));
     
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    hookClassMethod(objc_getClass("MMCGIRequester"), @selector(requestCGI: Body:Response:), [self class], @selector(hook_requestCGI: Body:Response:));
+#pragma clang diagnostic pop
     //替换沙盒路径
     rebind_symbols((struct rebinding[2]) {
         { "NSSearchPathForDirectoriesInDomains", swizzled_NSSearchPathForDirectoriesInDomains, (void *)&original_NSSearchPathForDirectoriesInDomains },
@@ -110,12 +121,16 @@
     [self setup];
 }
 
-- (void)hook_addChatMemberNeedVerifyMsg:(id)arg1 ContactList:(id)arg2
++ (id)hook_requestCGI:(unsigned int)arg1 Body:(id)arg2 Response:(id)arg3
 {
-    [self hook_addChatMemberNeedVerifyMsg:arg1 ContactList:arg2];
-    WCContactData *chatroomData = (WCContactData *)arg1;
-    NSDictionary *verifyDict = (NSDictionary *)arg2;
-    [[YMIMContactsManager shareInstance] checkStranger:verifyDict chatroom:chatroomData.m_nsUsrName];
+    id result = [self hook_requestCGI:arg1 Body:arg2 Response:arg3];
+    
+    return result;
+}
+
+- (void)hook_onAddMsg:(id)arg1 msgData:(id)arg2 {
+    
+    [self hook_onAddMsg:arg1 msgData:arg2];
 }
 
 //主控制器的生命周期
@@ -221,7 +236,6 @@
 
 
 #pragma mark - 撤回
-//备用撤回
 //- (void)hook_handleSyncCmdId:(id)arg1 withSyncCmdItems:(id)arg2 onComplete:(id)arg3
 //{
 //    NSArray <CmdItem *>*p_arg2 = (NSArray *)arg2;
@@ -230,9 +244,13 @@
 //        AddMsg *addMsg = [objc_getClass("AddMsg") parseFromData:item.cmdBuf.buffer];
 //        NSString *msg = addMsg.content.string;
 //        if ([msg rangeOfString:@"<sysmsg"].length <= 0) {
+//            if ([msg containsString:@"开始聊天了"]) {
+//                return;
+//            }
 //          [wself hook_handleSyncCmdId:arg1 withSyncCmdItems:arg2 onComplete:arg3];
 //          return;
 //        }
+        //备用撤回
 //        [wself _doParseRevokeMsg:msg msgData:nil arg1:arg1 arg2:arg2 arg3:arg3];
 //    }];
 //}
@@ -332,6 +350,14 @@
 {
     __block BOOL flag = NO;
     [msgs enumerateObjectsUsingBlock:^(AddMsg *addMsg, NSUInteger idx, BOOL * _Nonnull stop1) {
+    
+//        if ([addMsg.content.string containsString:@"可以开始聊天了"]) {
+//            ContactStorage *contactStorage = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("ContactStorage")];
+//            BOOL isFriend = [contactStorage IsFriendContact:addMsg.fromUserName.string];
+//            if (isFriend) {
+//                return;
+//            }
+//        }
         
         //群管理中阻止群消息
         [[YMWeChatPluginConfig sharedConfig].banModels enumerateObjectsUsingBlock:^(YMZGMPBanModel  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop2) {
